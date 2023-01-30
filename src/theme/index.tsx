@@ -1,12 +1,7 @@
 import { useMemo, ReactNode } from 'react';
 // @mui
 import { CssBaseline } from '@mui/material';
-import {
-  createTheme,
-  ThemeOptions,
-  ThemeProvider as MUIThemeProvider,
-  StyledEngineProvider,
-} from '@mui/material/styles';
+import { createTheme, ThemeOptions, ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
 // hooks
 import useSettings from '../hooks/useSettings';
 //
@@ -45,11 +40,9 @@ export default function ThemeProvider({ children }: Props) {
   theme.components = componentsOverride(theme);
 
   return (
-    <StyledEngineProvider injectFirst>
-      <MUIThemeProvider theme={theme}>
-        <CssBaseline />
-        {children}
-      </MUIThemeProvider>
-    </StyledEngineProvider>
+    <MUIThemeProvider theme={theme}>
+      <CssBaseline />
+      {children}
+    </MUIThemeProvider>
   );
 }

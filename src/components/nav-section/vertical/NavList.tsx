@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useRouter } from 'next/router';
 // @mui
 import { List, Collapse } from '@mui/material';
 // type
@@ -16,9 +16,9 @@ type NavListRootProps = {
 };
 
 export function NavListRoot({ list, isCollapse }: NavListRootProps) {
-  const { pathname } = useLocation();
+  const { pathname, asPath } = useRouter();
 
-  const active = getActive(list.path, pathname);
+  const active = getActive(list.path, pathname, asPath);
 
   const [open, setOpen] = useState(active);
 
@@ -58,9 +58,9 @@ type NavListSubProps = {
 };
 
 function NavListSub({ list }: NavListSubProps) {
-  const { pathname } = useLocation();
+  const { pathname, asPath } = useRouter();
 
-  const active = getActive(list.path, pathname);
+  const active = getActive(list.path, pathname, asPath);
 
   const [open, setOpen] = useState(active);
 
@@ -77,7 +77,7 @@ function NavListSub({ list }: NavListSubProps) {
               <NavItemSub
                 key={item.title + item.path}
                 item={item}
-                active={getActive(item.path, pathname)}
+                active={getActive(item.path, pathname, asPath)}
               />
             ))}
           </List>

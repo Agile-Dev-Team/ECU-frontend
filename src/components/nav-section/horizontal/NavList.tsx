@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+// next
+import { useRouter } from 'next/router';
 // type
 import { NavListProps } from '../type';
 //
@@ -16,9 +17,9 @@ type NavListRootProps = {
 export function NavListRoot({ list }: NavListRootProps) {
   const menuRef = useRef(null);
 
-  const { pathname } = useLocation();
+  const { pathname, asPath } = useRouter();
 
-  const active = getActive(list.path, pathname);
+  const active = getActive(list.path, pathname, asPath);
 
   const [open, setOpen] = useState(false);
 
@@ -81,9 +82,9 @@ type NavListSubProps = {
 function NavListSub({ list }: NavListSubProps) {
   const menuRef = useRef(null);
 
-  const { pathname } = useLocation();
+  const { pathname, asPath } = useRouter();
 
-  const active = getActive(list.path, pathname);
+  const active = getActive(list.path, pathname, asPath);
 
   const [open, setOpen] = useState(false);
 

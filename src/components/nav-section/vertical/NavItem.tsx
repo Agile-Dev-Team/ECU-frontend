@@ -1,16 +1,35 @@
-import { NavLink as RouterLink } from 'react-router-dom';
+import { forwardRef } from 'react';
+// next
+import NextLink from 'next/link';
 // @mui
 import { Box, Link, ListItemText, Typography, Tooltip } from '@mui/material';
+// hooks
+import useLocales from '../../../hooks/useLocales';
+// guards
+import RoleBasedGuard from '../../../guards/RoleBasedGuard';
 // type
 import { NavItemProps } from '../type';
 //
 import Iconify from '../../Iconify';
-import { ListItemStyle as ListItem, ListItemTextStyle, ListItemIconStyle } from './style';
+import { ListItemStyle, ListItemTextStyle, ListItemIconStyle, ListItemStyleProps } from './style';
 import { isExternalLink } from '..';
 
 // ----------------------------------------------------------------------
 
+// HANDLE SHOW ITEM BY ROLE
+const ListItem = forwardRef<HTMLDivElement & HTMLAnchorElement, ListItemStyleProps>(
+  (props, ref) => (
+    <RoleBasedGuard roles={props.roles}>
+      <ListItemStyle {...props} ref={ref}>
+        {props.children}
+      </ListItemStyle>
+    </RoleBasedGuard>
+  )
+);
+
 export function NavItemRoot({ item, isCollapse, open = false, active, onOpen }: NavItemProps) {
+  const { translate } = useLocales();
+
   const { title, path, icon, info, children, disabled, caption, roles } = item;
 
   const renderContent = (
@@ -18,16 +37,16 @@ export function NavItemRoot({ item, isCollapse, open = false, active, onOpen }: 
       {icon && <ListItemIconStyle>{icon}</ListItemIconStyle>}
       <ListItemTextStyle
         disableTypography
-        primary={title}
+        primary={translate(title)}
         secondary={
-          <Tooltip title={caption || ''} arrow>
+          <Tooltip title={translate(caption) || ''} arrow>
             <Typography
               noWrap
               variant="caption"
               component="div"
               sx={{ textTransform: 'initial', color: 'text.secondary' }}
             >
-              {caption}
+              {translate(caption)}
             </Typography>
           </Tooltip>
         }
@@ -62,15 +81,11 @@ export function NavItemRoot({ item, isCollapse, open = false, active, onOpen }: 
       {renderContent}
     </ListItem>
   ) : (
-    <ListItem
-      component={RouterLink}
-      to={path}
-      activeRoot={active}
-      disabled={disabled}
-      roles={roles}
-    >
-      {renderContent}
-    </ListItem>
+    <NextLink href={path} passHref>
+      <ListItem activeRoot={active} disabled={disabled} roles={roles}>
+        {renderContent}
+      </ListItem>
+    </NextLink>
   );
 }
 
@@ -79,6 +94,8 @@ export function NavItemRoot({ item, isCollapse, open = false, active, onOpen }: 
 type NavItemSubProps = Omit<NavItemProps, 'isCollapse'>;
 
 export function NavItemSub({ item, open = false, active = false, onOpen }: NavItemSubProps) {
+  const { translate } = useLocales();
+
   const { title, path, info, children, disabled, caption, roles } = item;
 
   const renderContent = (
@@ -86,16 +103,16 @@ export function NavItemSub({ item, open = false, active = false, onOpen }: NavIt
       <DotIcon active={active} />
       <ListItemText
         disableTypography
-        primary={title}
+        primary={translate(title)}
         secondary={
-          <Tooltip title={caption || ''} arrow>
+          <Tooltip title={translate(caption) || ''} arrow>
             <Typography
               noWrap
               variant="caption"
               component="div"
               sx={{ textTransform: 'initial', color: 'text.secondary' }}
             >
-              {caption}
+              {translate(caption)}
             </Typography>
           </Tooltip>
         }
@@ -126,16 +143,11 @@ export function NavItemSub({ item, open = false, active = false, onOpen }: NavIt
       {renderContent}
     </ListItem>
   ) : (
-    <ListItem
-      component={RouterLink}
-      to={path}
-      activeSub={active}
-      subItem
-      disabled={disabled}
-      roles={roles}
-    >
-      {renderContent}
-    </ListItem>
+    <NextLink href={path} passHref>
+      <ListItem activeSub={active} subItem disabled={disabled} roles={roles}>
+        {renderContent}
+      </ListItem>
+    </NextLink>
   );
 }
 

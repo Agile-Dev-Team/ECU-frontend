@@ -4,6 +4,7 @@ export * from './variants';
 
 export { default as DialogAnimate } from './DialogAnimate';
 export { default as TextAnimate } from './TextAnimate';
+export { default as Texth4Animate } from './Texth4Animate';
 
 export { default as FabButtonAnimate } from './FabButtonAnimate';
 export { default as IconButtonAnimate } from './IconButtonAnimate';

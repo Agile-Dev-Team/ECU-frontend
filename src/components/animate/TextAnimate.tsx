@@ -15,7 +15,7 @@ interface TextAnimateProps extends Props {
 export default function TextAnimate({ text, variants, sx, ...other }: TextAnimateProps) {
   return (
     <Box
-      component={m.h1}
+      component={m.h3}
       sx={{
         typography: 'h1',
         overflow: 'hidden',
@@ -24,11 +24,15 @@ export default function TextAnimate({ text, variants, sx, ...other }: TextAnimat
       }}
       {...other}
     >
-      {text.split('').map((letter, index) => (
-        <m.span key={index} variants={variants || varFade().inUp}>
-          {letter}
-        </m.span>
-      ))}
+      {text.split('').map((letter, index) => {
+          if(letter === ' ')
+            return <m.span key={index} variants={variants || varFade().inUp} style={{marginRight:'0.3em'}}>
+                {letter}
+              </m.span>
+          return <m.span key={index} variants={variants || varFade().inUp}>
+              {letter}
+            </m.span>
+        })}
     </Box>
   );
 }

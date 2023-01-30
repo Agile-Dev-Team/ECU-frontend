@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+// next
+import { useRouter } from 'next/router';
 // @mui
 import { styled, useTheme } from '@mui/material/styles';
 import { Box, Stack, Drawer } from '@mui/material';
@@ -41,7 +42,7 @@ type Props = {
 export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }: Props) {
   const theme = useTheme();
 
-  const { pathname } = useLocation();
+  const { pathname } = useRouter();
 
   const isDesktop = useResponsive('up', 'lg');
 

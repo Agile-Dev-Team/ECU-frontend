@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useState, useEffect } from 'react';
-// hooks
-import useResponsive from '../hooks/useResponsive';
+// @mui
+import { useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 // ----------------------------------------------------------------------
 
@@ -18,7 +19,7 @@ const initialState: CollapseDrawerContextProps = {
   collapseHover: false,
   onToggleCollapse: () => {},
   onHoverEnter: () => {},
-  onHoverLeave: () => {}
+  onHoverLeave: () => {},
 };
 
 const CollapseDrawerContext = createContext(initialState);
@@ -28,21 +29,21 @@ type CollapseDrawerProviderProps = {
 };
 
 function CollapseDrawerProvider({ children }: CollapseDrawerProviderProps) {
-  const isDesktop = useResponsive('up', 'lg');
-
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const [collapse, setCollapse] = useState({
     click: false,
-    hover: false
+    hover: false,
   });
 
   useEffect(() => {
-    if (!isDesktop) {
+    if (isMobile) {
       setCollapse({
         click: false,
-        hover: false
+        hover: false,
       });
     }
-  }, [isDesktop]);
+  }, [isMobile]);
 
   const handleToggleCollapse = () => {
     setCollapse({ ...collapse, click: !collapse.click });
@@ -66,7 +67,7 @@ function CollapseDrawerProvider({ children }: CollapseDrawerProviderProps) {
         collapseHover: collapse.hover,
         onToggleCollapse: handleToggleCollapse,
         onHoverEnter: handleHoverEnter,
-        onHoverLeave: handleHoverLeave
+        onHoverLeave: handleHoverLeave,
       }}
     >
       {children}

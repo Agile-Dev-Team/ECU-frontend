@@ -9,8 +9,9 @@
     "strict": true,
     "noEmit": true,
     "allowJs": true,
+    "jsx": "preserve",
     "module": "esnext",
-    "jsx": "react-jsx",
+    "incremental": true,
     "skipLibCheck": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
@@ -24,11 +25,12 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-  ],
   "exclude": [
     "node_modules"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
   ]
 }

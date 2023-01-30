@@ -11,7 +11,6 @@ type IProps = LinkProps & ButtonProps;
 
 export interface ListItemStyleProps extends IProps {
   component?: ReactNode;
-  to?: string;
   activeRoot?: boolean;
   activeSub?: boolean;
   subItem?: boolean;

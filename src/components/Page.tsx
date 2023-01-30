@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+import Head from 'next/head';
 import { forwardRef, ReactNode } from 'react';
 // @mui
 import { Box, BoxProps } from '@mui/material';
@@ -13,10 +13,10 @@ interface Props extends BoxProps {
 
 const Page = forwardRef<HTMLDivElement, Props>(({ children, title = '', meta, ...other }, ref) => (
   <>
-    <Helmet>
+    <Head>
       <title>{`${title} | Minimal-UI`}</title>
       {meta}
-    </Helmet>
+    </Head>
 
     <Box ref={ref} {...other}>
       {children}

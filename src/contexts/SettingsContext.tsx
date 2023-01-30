@@ -1,10 +1,9 @@
-import { ReactNode, useEffect, createContext } from 'react';
-// hooks
-import useLocalStorage from '../hooks/useLocalStorage';
+import Cookies from 'js-cookie';
+import { ReactNode, createContext, Dispatch, SetStateAction, useEffect, useState } from 'react';
 // utils
 import getColorPresets, { colorPresets, defaultPreset } from '../utils/getColorPresets';
 // config
-import { defaultSettings } from '../config';
+import { defaultSettings, cookiesKey, cookiesExpires } from '../config';
 // @type
 import {
   ThemeMode,
@@ -13,6 +12,7 @@ import {
   ThemeDirection,
   ThemeColorPresets,
   SettingsContextProps,
+  SettingsValueProps,
 } from '../components/settings/type';
 
 // ----------------------------------------------------------------------
@@ -54,19 +54,15 @@ const SettingsContext = createContext(initialState);
 
 type SettingsProviderProps = {
   children: ReactNode;
+  defaultSettings: SettingsValueProps;
 };
 
-function SettingsProvider({ children }: SettingsProviderProps) {
-  const [settings, setSettings] = useLocalStorage('settings', {
-    themeMode: initialState.themeMode,
-    themeLayout: initialState.themeLayout,
-    themeStretch: initialState.themeStretch,
-    themeContrast: initialState.themeContrast,
-    themeDirection: initialState.themeDirection,
-    themeColorPresets: initialState.themeColorPresets,
-  });
+function SettingsProvider({ children, defaultSettings }: SettingsProviderProps) {
+  const [settings, setSettings] = useSettingCookies(defaultSettings);
 
-  const isArabic = localStorage.getItem('i18nextLng') === 'ar';
+  const langStorage = typeof window !== 'undefined' ? localStorage.getItem('i18nextLng') : '';
+
+  const isArabic = langStorage === 'ar';
 
   useEffect(() => {
     if (isArabic) {
@@ -220,3 +216,40 @@ function SettingsProvider({ children }: SettingsProviderProps) {
 }
 
 export { SettingsProvider, SettingsContext };
+
+// ----------------------------------------------------------------------
+
+function useSettingCookies(
+  defaultSettings: SettingsValueProps
+): [SettingsValueProps, Dispatch<SetStateAction<SettingsValueProps>>] {
+  const [settings, setSettings] = useState<SettingsValueProps>(defaultSettings);
+
+  const onChangeSetting = () => {
+    Cookies.set(cookiesKey.themeMode, settings.themeMode, { expires: cookiesExpires });
+
+    Cookies.set(cookiesKey.themeDirection, settings.themeDirection, { expires: cookiesExpires });
+
+    Cookies.set(cookiesKey.themeColorPresets, settings.themeColorPresets, {
+      expires: cookiesExpires,
+    });
+
+    Cookies.set(cookiesKey.themeLayout, settings.themeLayout, {
+      expires: cookiesExpires,
+    });
+
+    Cookies.set(cookiesKey.themeContrast, settings.themeContrast, {
+      expires: cookiesExpires,
+    });
+
+    Cookies.set(cookiesKey.themeStretch, JSON.stringify(settings.themeStretch), {
+      expires: cookiesExpires,
+    });
+  };
+
+  useEffect(() => {
+    onChangeSetting();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [settings]);
+
+  return [settings, setSettings];
+}
