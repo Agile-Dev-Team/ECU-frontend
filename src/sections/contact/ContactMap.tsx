@@ -52,12 +52,22 @@ export default function ContactMap({ contacts }: Props) {
     zoom: 2,
   });
 
+  // const THEMES = {
+  //   streets: 'mapbox://styles/mapbox/streets-v11',
+  //   outdoors: 'mapbox://styles/mapbox/outdoors-v11',
+  //   light: 'mapbox://styles/mapbox/light-v10',
+  //   dark: 'mapbox://styles/mapbox/dark-v10',
+  //   satellite: 'mapbox://styles/mapbox/satellite-v9',
+  //   satelliteStreets: 'mapbox://styles/mapbox/satellite-streets-v11',
+  // };
+  
+
   return (
     <RootStyle>
       <MapGL
         {...viewport}
         onViewportChange={setViewport}
-        mapStyle={`mapbox://styles/mapbox/${isLight ? 'light' : 'dark'}-v10`}
+        mapStyle={isLight? `mapbox://styles/mapbox/streets-v11` : 'mapbox://styles/mapbox/dark-v10' }
         mapboxApiAccessToken={MAPBOX_API}
         width="100%"
         height="100%"
