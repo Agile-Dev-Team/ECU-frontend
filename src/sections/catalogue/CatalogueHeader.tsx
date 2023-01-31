@@ -61,7 +61,7 @@ export default function CatalogueHeader() {
           <TextAnimate text="Vehicle Catalogue" sx={{ color: 'primary.main', mr:2 }} variants={varFade().inRight} />
           <br />
           <Box sx={{ display: 'flex',flexWrap:'wrap', color: 'common.white', mt:4}}>
-            <Texth4Animate text="Looking for a remap for a specific vehicle?" sx={{ mr: 2 }} />
+            <Texth4Animate text="Looking for a ECU for a specific vehicle?" sx={{ mr: 2 }} />
           </Box>
           <Grid container spacing={5} sx={{ mt: 5, color: 'common.white' }}>
             {CONTACTS.map((contact) => (

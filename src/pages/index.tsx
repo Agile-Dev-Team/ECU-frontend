@@ -6,7 +6,7 @@ import Layout from '../layouts';
 import Page from '../components/Page';
 // sections
 import {
-  HomeHero,
+  HomeHeader,
   HomeMinimal,
   HomeDarkMode,
   HomeLookingFor,
@@ -16,6 +16,9 @@ import {
   HomeCleanInterfaces,
   HomeHugePackElements,
 } from '../sections/home';
+
+import { Grid, Container } from '@mui/material';
+import { CatalogueHeader, CatalogueForm } from '../sections/catalogue';
 
 // ----------------------------------------------------------------------
 
@@ -35,13 +38,19 @@ HomePage.getLayout = function getLayout(page: React.ReactElement) {
 
 export default function HomePage() {
   return (
-    <Page title="The starting point for your next project">
-      <HomeHero />
+    <Page title="Welcome to ECU store">
+      <HomeHeader />
 
       <ContentStyle>
         <HomeMinimal />
-
-        <HomeHugePackElements />
+        <Container sx={{ my: 10 }}>
+          <Grid container spacing={10}>
+            <Grid item xs={12} md={12}>
+              <CatalogueForm />
+            </Grid>
+          </Grid>
+        </Container>
+        {/* <HomeHugePackElements />
 
         <HomeDarkMode />
 
@@ -53,7 +62,7 @@ export default function HomePage() {
 
         <HomeLookingFor />
 
-        <HomeAdvertisement />
+        <HomeAdvertisement /> */}
       </ContentStyle>
     </Page>
   );

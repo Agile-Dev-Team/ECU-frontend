@@ -10,7 +10,7 @@ export default function CatalogueForm() {
   return (
     <Stack component={MotionViewport} spacing={5}>
       <m.div variants={varFade().inDown}>
-        <Typography variant="h3">Let's try~</Typography>
+        <Typography variant="h3" sx={{pl:5}}>What do you want to find?</Typography>
       </m.div>
 
       <Grid container spacing={5} sx={{ mt: 5, color: 'common.white' }}>
@@ -55,7 +55,7 @@ export default function CatalogueForm() {
 
       <m.div variants={varFade().inUp}>
         <Button size="large" variant="contained" sx={{ml:5}}>
-          VIEW REMAPS
+          VIEW ECUs
         </Button>
       </m.div>
     </Stack>

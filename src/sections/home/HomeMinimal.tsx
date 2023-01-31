@@ -1,28 +1,45 @@
 import { m } from 'framer-motion';
 // @mui
 import { alpha, useTheme, styled } from '@mui/material/styles';
-import { Box, Card, Container, Typography } from '@mui/material';
+import { Box, Card, Container, Typography, Paper, Button } from '@mui/material';
 // components
 import Image from '../../components/Image';
 import { MotionViewport, varFade } from '../../components/animate';
-
-// ----------------------------------------------------------------------
+import Carousel from 'react-material-ui-carousel';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 const CARDS = [
   {
     icon: 'https://minimal-assets-api-dev.vercel.app/assets/icons/ic_design.svg',
-    title: 'UI & UX Design',
+    title: 'AdBlue off',
     description:
       'The set is built on the principles of the atomic design system. It helps you to create projects fastest and easily customized packages for your projects.',
   },
   {
-    icon: 'https://minimal-assets-api-dev.vercel.app/assets/icons/ic_code.svg',
-    title: 'Development',
+    icon: 'https://minimal-assets-api-dev.vercel.app/assets/icons/ic_design.svg',
+    title: 'DPF off',
     description: 'Easy to customize and extend each component, saving you time and money.',
   },
   {
-    icon: '/logo/logo_single.svg',
-    title: 'Branding',
+    icon: 'https://minimal-assets-api-dev.vercel.app/assets/icons/ic_design.svg',
+    title: 'LSU off',
+    description: 'Consistent design in colors, fonts ... makes brand recognition easy.',
+  },
+  {
+    icon: 'https://minimal-assets-api-dev.vercel.app/assets/icons/ic_design.svg',
+    title: 'EGR off',
+    description:
+      'The set is built on the principles of the atomic design system. It helps you to create projects fastest and easily customized packages for your projects.',
+  },
+  {
+    icon: 'https://minimal-assets-api-dev.vercel.app/assets/icons/ic_design.svg',
+    title: 'IMMO off',
+    description: 'Easy to customize and extend each component, saving you time and money.',
+  },
+  {
+    icon: 'https://minimal-assets-api-dev.vercel.app/assets/icons/ic_design.svg',
+    title: 'TVA off',
     description: 'Consistent design in colors, fonts ... makes brand recognition easy.',
   },
 ];
@@ -56,8 +73,9 @@ const CardStyle = styled(Card)(({ theme }) => {
     },
     '&.cardLeft': {
       [theme.breakpoints.up('md')]: { marginTop: -40 },
+      transition: 'all .6s ease-in-out',
     },
-    '&.cardCenter': {
+    '&.cardLeft:hover' :{
       [theme.breakpoints.up('md')]: {
         marginTop: -80,
         backgroundColor: theme.palette.background.paper,
@@ -79,6 +97,7 @@ const CardStyle = styled(Card)(({ theme }) => {
         },
       },
     },
+    
   };
 });
 
@@ -88,6 +107,34 @@ export default function HomeMinimal() {
   const theme = useTheme();
 
   const isLight = theme.palette.mode === 'light';
+  const items = [
+    {
+      img: '/assets/carbackgrounds/2.jpg',
+      name: 'Hyundaai – Bosch EDC17C53 – DPF, EGR, DTC off w/o sensors',
+      description:
+        'Developed and added to the program DPF, EGR, DTC off w/o sensors for Hyundai ECU Bosch EDC17C53',
+    },
+    {
+      img: '/assets/carbackgrounds/3.jpg',
+      name: 'Christmas Promotion! All December! To 30% discount!',
+      description:
+        'With appreciation for your business and with warmest wishes for a happy Holiday Season and a prosperous New Year! Like all previous years, this year was no exception, and we are starting the Christmas sale for our beloved customers, which gives you the opportunity to purchase everything you want at a super price. Let’s start! 😉\
+                    Only December! Every module 450 euro!\
+                    FULL Version – 6400 euro!\
+                    This price available from the 1st of December to the 31th of December 2022!\
+                    If you want to buy the dongle in your country – check our reseller list. We have the dealsers more than 25 countrues.',
+    },
+    {
+      img: '/assets/carbackgrounds/4.jpg',
+      name: 'SALE WEEK!! To 20% OFF. THE 26-30th of SEPTEMBER!',
+      description:
+        'Every half an a year we make the SALE WEEK.\
+                    Sale will be available from the 26th to the 30th of September 2022!\
+                    Sale prices for these days\
+                    – every ESS module from 450 to 600 euro depends from the regular module price\
+                    – FULL version of ESS Software – 6900 euro',
+    },
+  ];
 
   return (
     <RootStyle>
@@ -95,19 +142,57 @@ export default function HomeMinimal() {
         <Box
           sx={{
             textAlign: 'center',
-            mb: { xs: 10, md: 25 },
+            mb: { xs: 10, md: 7 },
           }}
         >
           <m.div variants={varFade().inUp}>
             <Typography component="div" variant="overline" sx={{ mb: 2, color: 'text.disabled' }}>
-              Minimal
+              News
             </Typography>
           </m.div>
           <m.div variants={varFade().inDown}>
-            <Typography variant="h2">What minimal helps you?</Typography>
+            <Typography variant="h2">What is for Today?</Typography>
           </m.div>
         </Box>
+        <Carousel
+          NextIcon={<NavigateNextIcon sx={{ color: 'primary.main' }} />}
+          PrevIcon={<NavigateBeforeIcon sx={{ color: 'primary.main' }} />}
+          sx={{ mb: 15 }}
+        >
+          {items.map((item, i) => (
+            <Paper
+              key={'item' + i}
+              sx={{
+                backgroundImage: `url(${item.img})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                height: { xs: 300, md: 600 },
+                display: 'flex',
+                justifyContent: 'flex-end',
+                alignItems: 'center',
+                flexDirection: 'column',
+                px: 5,
+                color: 'white !important',
+              }}
+            >
+              <m.h2 variants={varFade().inRight}>{item.name}</m.h2>
+              <m.p variants={varFade().inUp}>{item.description}</m.p>
 
+              <Button className="CheckButton">Check it out!</Button>
+            </Paper>
+          ))}
+        </Carousel>
+
+        <Box
+          sx={{
+            textAlign: 'center',
+            mb: { xs: 12, md: 15 },
+          }}
+        >
+          <m.div variants={varFade().inDown}>
+            <Typography variant="h2">Our Service</Typography>
+          </m.div>
+        </Box>
         <Box
           sx={{
             display: 'grid',
@@ -118,13 +203,13 @@ export default function HomeMinimal() {
           {CARDS.map((card, index) => (
             <m.div variants={varFade().inUp} key={card.title}>
               <CardStyle
-                className={(index === 0 && 'cardLeft') || (index === 1 && 'cardCenter') || ''}
+                className="cardLeft"
               >
                 <Image
                   src={card.icon}
                   alt={card.title}
                   sx={{
-                    mb: 10,
+                    mb: 15,
                     mx: 'auto',
                     width: 40,
                     height: 40,

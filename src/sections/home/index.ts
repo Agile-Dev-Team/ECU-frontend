@@ -1,4 +1,4 @@
-export { default as HomeHero } from './HomeHero';
+export { default as HomeHeader } from './HomeHeader';
 export { default as HomeMinimal } from './HomeMinimal';
 export { default as HomeDarkMode } from './HomeDarkMode';
 export { default as HomeLookingFor } from './HomeLookingFor';

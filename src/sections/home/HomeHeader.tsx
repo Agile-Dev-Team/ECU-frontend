@@ -49,6 +49,7 @@ const HeroOverlayStyle = styled(m.img)({
   height: '100%',
   objectFit: 'cover',
   position: 'absolute',
+  backgroundImage:'url(/assets/background2.jpg)',
 });
 
 const HeroImgStyle = styled(m.img)(({ theme }) => ({
@@ -68,11 +69,11 @@ const HeroImgStyle = styled(m.img)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function HomeHero() {
+export default function HomeHeader() {
   return (
     <MotionContainer>
       <RootStyle>
-        <HeroOverlayStyle alt="overlay" src="/assets/overlay.svg" variants={varFade().in} />
+        <HeroOverlayStyle alt="overlay" src="/assets/overlay-home.svg" variants={varFade().in} />
 
         <HeroImgStyle
           alt="hero"
@@ -83,69 +84,20 @@ export default function HomeHero() {
         <Container>
           <ContentStyle>
             <m.div variants={varFade().inRight}>
-              <Typography variant="h1" sx={{ color: 'common.white' }}>
-                Start a <br />
-                new project <br /> with
-                <Typography component="span" variant="h1" sx={{ color: 'primary.main' }}>
-                  &nbsp;Minimal
+              <Typography variant="h2" sx={{ color: 'common.white' }}>
+                Welcome to here,<br />
+                
+                <Typography component="span" variant="h2" sx={{ color: 'primary.main' }}>
+                  &nbsp;ECU Store
                 </Typography>
               </Typography>
             </m.div>
 
             <m.div variants={varFade().inRight}>
               <Typography sx={{ color: 'common.white' }}>
-                The starting point for your next project based on easy-to-customize MUI helps you
-                build apps faster and better.
+                You can purchase a new ECU file or upgrade your ECU file of your car. Best quailty and service is waiting for you here...
               </Typography>
             </m.div>
-
-            <Stack spacing={2.5} alignItems="center" direction={{ xs: 'column', md: 'row' }}>
-              <m.div variants={varFade().inRight}>
-                <TextIconLabel
-                  icon={
-                    <Image
-                      alt="sketch icon"
-                      src="https://minimal-assets-api-dev.vercel.app/assets/images/home/ic_sketch_small.svg"
-                      sx={{ width: 20, height: 20, mr: 1 }}
-                    />
-                  }
-                  value={
-                    <Link
-                      href="https://www.sketch.com/s/76388a4d-d6e5-4b7f-8770-e5446bfa1268"
-                      target="_blank"
-                      rel="noopener"
-                      color="common.white"
-                      sx={{ typography: 'body2' }}
-                    >
-                      Preview Sketch
-                    </Link>
-                  }
-                />
-              </m.div>
-
-              <m.div variants={varFade().inRight}>
-                <TextIconLabel
-                  icon={
-                    <Image
-                      alt="sketch icon"
-                      src="https://minimal-assets-api-dev.vercel.app/assets/images/home/ic_figma_small.svg"
-                      sx={{ width: 20, height: 20, mr: 1 }}
-                    />
-                  }
-                  value={
-                    <Link
-                      href="https://www.figma.com/file/x7earqGD0VGFjFdk5v2DgZ/%5BPreview%5D-Minimal-Web?node-id=866%3A55474"
-                      target="_blank"
-                      rel="noopener"
-                      color="common.white"
-                      sx={{ typography: 'body2' }}
-                    >
-                      Preview Figma
-                    </Link>
-                  }
-                />
-              </m.div>
-            </Stack>
 
             <m.div variants={varFade().inRight}>
               <NextLink href={PATH_DASHBOARD.root} passHref>
@@ -154,7 +106,7 @@ export default function HomeHero() {
                   variant="contained"
                   startIcon={<Iconify icon={'eva:flash-fill'} width={20} height={20} />}
                 >
-                  Live Preview
+                  Get Started
                 </Button>
               </NextLink>
             </m.div>
@@ -162,10 +114,9 @@ export default function HomeHero() {
             <Stack spacing={2.5}>
               <m.div variants={varFade().inRight}>
                 <Typography variant="overline" sx={{ color: 'primary.light' }}>
-                  Available For
+                  Contact us
                 </Typography>
               </m.div>
-
               <Stack
                 direction="row"
                 spacing={1.5}
