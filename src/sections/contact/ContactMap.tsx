@@ -72,7 +72,7 @@ export default function ContactMap({ contacts }: Props) {
         width="100%"
         height="100%"
       >
-        <MapControlScale />
+        {/* <MapControlScale /> */}
         <MapControlNavigation />
 
         {contacts.map((country) => (

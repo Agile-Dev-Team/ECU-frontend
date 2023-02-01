@@ -1,8 +1,6 @@
 // @mui
 import { styled } from '@mui/material/styles';
 import { List, Box, ListSubheader } from '@mui/material';
-// hooks
-import useLocales from '../../../hooks/useLocales';
 // type
 import { NavSectionProps } from '../type';
 //
@@ -30,8 +28,6 @@ export default function NavSectionVertical({
   isCollapse = false,
   ...other
 }: NavSectionProps) {
-  const { translate } = useLocales();
-
   return (
     <Box {...other}>
       {navConfig.map((group) => (
@@ -43,7 +39,7 @@ export default function NavSectionVertical({
               }),
             }}
           >
-            {translate(group.subheader)}
+            {group.subheader}
           </ListSubheaderStyle>
 
           {group.items.map((list) => (

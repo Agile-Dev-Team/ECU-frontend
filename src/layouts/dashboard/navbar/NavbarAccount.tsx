@@ -1,14 +1,6 @@
-// next
-import NextLink from 'next/link';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Link, Typography } from '@mui/material';
-// hooks
-import useAuth from '../../../hooks/useAuth';
-// routes
-import { PATH_DASHBOARD } from '../../../routes/paths';
-// components
-import MyAvatar from '../../../components/MyAvatar';
+import { Box, Link, Typography, Avatar } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -30,42 +22,41 @@ type Props = {
 };
 
 export default function NavbarAccount({ isCollapse }: Props) {
-  const { user } = useAuth();
-
   return (
-    <NextLink href={PATH_DASHBOARD.user.account} passHref>
-      <Link underline="none" color="inherit">
-        <RootStyle
+    <Link underline="none" color="inherit">
+      <RootStyle
+        sx={{
+          ...(isCollapse && {
+            bgcolor: 'transparent',
+          }),
+        }}
+      >
+        <Avatar
+          src="https://minimal-assets-api-dev.vercel.app/assets/images/avatars/avatar_5.jpg"
+          alt="Rayan Moran"
+        />
+
+        <Box
           sx={{
+            ml: 2,
+            transition: (theme) =>
+              theme.transitions.create('width', {
+                duration: theme.transitions.duration.shorter,
+              }),
             ...(isCollapse && {
-              bgcolor: 'transparent',
+              ml: 0,
+              width: 0,
             }),
           }}
         >
-          <MyAvatar />
-
-          <Box
-            sx={{
-              ml: 2,
-              transition: (theme) =>
-                theme.transitions.create('width', {
-                  duration: theme.transitions.duration.shorter,
-                }),
-              ...(isCollapse && {
-                ml: 0,
-                width: 0,
-              }),
-            }}
-          >
-            <Typography variant="subtitle2" noWrap>
-              {user?.displayName}
-            </Typography>
-            <Typography variant="body2" noWrap sx={{ color: 'text.secondary' }}>
-              {user?.role}
-            </Typography>
-          </Box>
-        </RootStyle>
-      </Link>
-    </NextLink>
+          <Typography variant="subtitle2" noWrap>
+            Rayan Moran
+          </Typography>
+          <Typography variant="body2" noWrap sx={{ color: 'text.secondary' }}>
+            user
+          </Typography>
+        </Box>
+      </RootStyle>
+    </Link>
   );
 }

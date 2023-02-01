@@ -21,7 +21,8 @@ const RootStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 Pricing.getLayout = function getLayout(page: React.ReactElement) {
-  return <Layout variant="logoOnly">{page}</Layout>;
+  
+  return <Layout variant="main">{page}</Layout>;
 };
 
 // ----------------------------------------------------------------------

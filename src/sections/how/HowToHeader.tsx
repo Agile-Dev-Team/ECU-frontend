@@ -98,7 +98,7 @@ export default function HowToHeader() {
       <Container component={MotionContainer} sx={{ position: 'relative', height: '100%' }}>
         <ContentStyle>
           <TextAnimate
-            text="Get your ECU tuning file"
+            text="Get your ECU file"
             sx={{ color: 'common.white', mr: 2 }}
             variants={varFade().inUp}
           />
