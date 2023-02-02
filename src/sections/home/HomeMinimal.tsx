@@ -134,6 +134,52 @@ export default function HomeMinimal() {
                     – every ESS module from 450 to 600 euro depends from the regular module price\
                     – FULL version of ESS Software – 6900 euro',
     },
+    {
+      img: '/assets/carbackgrounds/5.jpg',
+      name: 'Christmas Promotion! All December! To 30% discount!',
+      description:
+        'With appreciation for your business and with warmest wishes for a happy Holiday Season and a prosperous New Year! Like all previous years, this year was no exception, and we are starting the Christmas sale for our beloved customers, which gives you the opportunity to purchase everything you want at a super price. Let’s start! 😉\
+                    Only December! Every module 450 euro!\
+                    FULL Version – 6400 euro!\
+                    This price available from the 1st of December to the 31th of December 2022!\
+                    If you want to buy the dongle in your country – check our reseller list. We have the dealsers more than 25 countrues.',
+    },
+    {
+      img: '/assets/carbackgrounds/2.jpg',
+      name: 'Hyundaai – Bosch EDC17C53 – DPF, EGR, DTC off w/o sensors',
+      description:
+        'Developed and added to the program DPF, EGR, DTC off w/o sensors for Hyundai ECU Bosch EDC17C53',
+    },
+    {
+      img: '/assets/carbackgrounds/3.jpg',
+      name: 'Christmas Promotion! All December! To 30% discount!',
+      description:
+        'With appreciation for your business and with warmest wishes for a happy Holiday Season and a prosperous New Year! Like all previous years, this year was no exception, and we are starting the Christmas sale for our beloved customers, which gives you the opportunity to purchase everything you want at a super price. Let’s start! 😉\
+                    Only December! Every module 450 euro!\
+                    FULL Version – 6400 euro!\
+                    This price available from the 1st of December to the 31th of December 2022!\
+                    If you want to buy the dongle in your country – check our reseller list. We have the dealsers more than 25 countrues.',
+    },
+    {
+      img: '/assets/carbackgrounds/4.jpg',
+      name: 'SALE WEEK!! To 20% OFF. THE 26-30th of SEPTEMBER!',
+      description:
+        'Every half an a year we make the SALE WEEK.\
+                    Sale will be available from the 26th to the 30th of September 2022!\
+                    Sale prices for these days\
+                    – every ESS module from 450 to 600 euro depends from the regular module price\
+                    – FULL version of ESS Software – 6900 euro',
+    },
+    {
+      img: '/assets/carbackgrounds/5.jpg',
+      name: 'Christmas Promotion! All December! To 30% discount!',
+      description:
+        'With appreciation for your business and with warmest wishes for a happy Holiday Season and a prosperous New Year! Like all previous years, this year was no exception, and we are starting the Christmas sale for our beloved customers, which gives you the opportunity to purchase everything you want at a super price. Let’s start! 😉\
+                    Only December! Every module 450 euro!\
+                    FULL Version – 6400 euro!\
+                    This price available from the 1st of December to the 31th of December 2022!\
+                    If you want to buy the dongle in your country – check our reseller list. We have the dealsers more than 25 countrues.',
+    },
   ];
 
   return (
