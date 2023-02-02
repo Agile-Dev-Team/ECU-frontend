@@ -26,7 +26,7 @@ import InvoicePDF from './InvoicePDF';
 // ----------------------------------------------------------------------
 
 type Props = {
-  invoice: Invoice;
+  invoice: UploadFile;
 };
 
 export default function InvoiceToolbar({ invoice }: Props) {

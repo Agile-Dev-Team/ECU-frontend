@@ -8,7 +8,7 @@ import Page from '../components/Page';
 import { HomeHeader, HomeMinimal } from '../sections/home';
 
 import { Grid, Container } from '@mui/material';
-import { CatalogueHeader, CatalogueForm } from '../sections/catalogue';
+import { CatalogueForm } from '../sections/catalogue';
 
 // ----------------------------------------------------------------------
 

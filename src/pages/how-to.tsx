@@ -1,10 +1,8 @@
 // @mui
 import { styled } from '@mui/material/styles';
-import { Grid, Container } from '@mui/material';
 // layouts
 import Layout from '../layouts';
-// _mock
-import { _mapContact } from '../_mock';
+
 // components
 import Page from '../components/Page';
 // sections
