@@ -257,8 +257,8 @@ export default function HomeMinimal() {
                   sx={{
                     mb: {xs:15, md:8},
                     mx: 'auto',
-                    width: {xs:40, md:80},
-                    height: {xs:40, md:80},
+                    width: {xs:80, md:80},
+                    height: {xs:80, md:80},
                     filter: (theme) => shadowIcon(theme.palette.primary.main),
                     ...(index === 0 && {
                       filter: (theme) => shadowIcon(theme.palette.info.main),
