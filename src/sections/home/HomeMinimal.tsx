@@ -11,34 +11,34 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 const CARDS = [
   {
-    icon: 'https://minimal-assets-api-dev.vercel.app/assets/icons/ic_design.svg',
+    icon: '/assets/adblue-scr-off.png',
     title: 'AdBlue off',
     description:
       'The set is built on the principles of the atomic design system. It helps you to create projects fastest and easily customized packages for your projects.',
   },
   {
-    icon: 'https://minimal-assets-api-dev.vercel.app/assets/icons/ic_design.svg',
+    icon: '/assets/dpf-off.png',
     title: 'DPF off',
     description: 'Easy to customize and extend each component, saving you time and money.',
   },
   {
-    icon: 'https://minimal-assets-api-dev.vercel.app/assets/icons/ic_design.svg',
+    icon: '/assets/lsu-off.png',
     title: 'LSU off',
     description: 'Consistent design in colors, fonts ... makes brand recognition easy.',
   },
   {
-    icon: 'https://minimal-assets-api-dev.vercel.app/assets/icons/ic_design.svg',
+    icon: '/assets/egr-off.png',
     title: 'EGR off',
     description:
       'The set is built on the principles of the atomic design system. It helps you to create projects fastest and easily customized packages for your projects.',
   },
   {
-    icon: 'https://minimal-assets-api-dev.vercel.app/assets/icons/ic_design.svg',
+    icon: '/assets/immo-off.png',
     title: 'IMMO off',
     description: 'Easy to customize and extend each component, saving you time and money.',
   },
   {
-    icon: 'https://minimal-assets-api-dev.vercel.app/assets/icons/ic_design.svg',
+    icon: '/assets/fehlercodes-off.png',
     title: 'TVA off',
     description: 'Consistent design in colors, fonts ... makes brand recognition easy.',
   },
@@ -209,10 +209,10 @@ export default function HomeMinimal() {
                   src={card.icon}
                   alt={card.title}
                   sx={{
-                    mb: 15,
+                    mb: {xs:15, md:8},
                     mx: 'auto',
-                    width: 40,
-                    height: 40,
+                    width: {xs:40, md:80},
+                    height: {xs:40, md:80},
                     filter: (theme) => shadowIcon(theme.palette.primary.main),
                     ...(index === 0 && {
                       filter: (theme) => shadowIcon(theme.palette.info.main),

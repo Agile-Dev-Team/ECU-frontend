@@ -9,20 +9,21 @@ const getIcon = (name: string) => (
 
 const ICONS = {
   user: getIcon('ic_user'),
-  ecommerce: getIcon('ic_ecommerce'),
-  analytics: getIcon('ic_analytics'),
-  dashboard: getIcon('ic_dashboard'),
+  support: getIcon('ic_chat'),
+  file: getIcon('ic_mail'),
+  upload: getIcon('ic_invoice'),
 };
 
 const sidebarConfig = [
   // GENERAL
   // ----------------------------------------------------------------------
   {
-    subheader: 'general v3.4.0',
+    subheader: 'My Account',
     items: [
-      { title: 'One', path: '/dashboard/one', icon: ICONS.dashboard },
-      { title: 'Two', path: '/dashboard/two', icon: ICONS.ecommerce },
-      { title: 'Three', path: '/dashboard/three', icon: ICONS.analytics },
+      { title: 'My account', path: '/dashboard/account', icon: ICONS.user },
+      { title: 'Upload File', path: '/dashboard/upload', icon: ICONS.upload },
+      { title: 'My Files', path: '/dashboard/myfile', icon: ICONS.file },
+      { title: 'Cteate Support', path: '/dashboard/support', icon: ICONS.support },
     ],
   },
 

@@ -13,7 +13,7 @@ export default function CatalogueForm() {
         <Typography variant="h3" sx={{pl:5}}>What do you want to find?</Typography>
       </m.div>
 
-      <Grid container spacing={5} sx={{ mt: 5, color: 'common.white' }}>
+      <Grid container spacing={5} sx={{ mt: 5, color: 'common.white', "& .MuiGrid-item":{paddingLeft:0}} }>
         <Grid item xs={11} sm={11} md={6} lg={4} sx={{ pr: { md: 5 } }}>
           <m.div variants={varFade().inLeft}>
             <TextField fullWidth label="Vehicle Type" select />
@@ -54,7 +54,7 @@ export default function CatalogueForm() {
       </Grid>
 
       <m.div variants={varFade().inUp}>
-        <Button size="large" variant="contained" sx={{ml:5}}>
+        <Button size="large" variant="contained">
           VIEW ECUs
         </Button>
       </m.div>

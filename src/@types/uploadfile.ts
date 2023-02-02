@@ -19,9 +19,10 @@ export type InvoiceItem = {
   service: string;
 };
 
-export type Invoice = {
+export type UploadFile = {
   id: string;
   sent: number;
+  title: string;
   status: string;
   totalPrice: number;
   invoiceNumber: string;

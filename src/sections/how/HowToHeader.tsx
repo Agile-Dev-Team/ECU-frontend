@@ -64,8 +64,8 @@ const ContentStyle = styled('div')(({ theme }) => ({
     height: '280px',
     overflow: 'hidden',
     borderStyle:'solid',
-    borderWidth: '1px',
-    borderRadius:'5px'
+    borderWidth: '5px',
+    borderRadius:'10px'
   },
   '& .test .first-box': {
     textAlign: 'center',
@@ -73,6 +73,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
     transition: 'all .6s ease-in-out',
     backgroundColor:'#00000085',
     height: '100%',
+    borderRadius:'10px'
   },
   '& .test:hover': {
     '& .first-box': {
@@ -87,6 +88,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
     transition: 'all .6s ease-in-out',
     backgroundColor: '#000000E6',
     height: '100%',
+    borderRadius:'10px'
   },
 }));
 

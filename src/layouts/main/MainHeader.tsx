@@ -89,7 +89,7 @@ export default function MainHeader() {
             variant="contained"
             target="_blank"
             rel="noopener"
-            href="https://material-ui.com/store/items/minimal-dashboard/"
+            href="/dashboard"
           >
             Purchase Now
           </Button>

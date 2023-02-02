@@ -92,7 +92,7 @@ export function RHFUploadMultiFile({ name, ...other }: RHFUploadMultiFileProps) 
 
         return (
           <UploadMultiFile
-            accept="image/*"
+            accept=""
             files={field.value}
             error={checkError}
             helperText={
