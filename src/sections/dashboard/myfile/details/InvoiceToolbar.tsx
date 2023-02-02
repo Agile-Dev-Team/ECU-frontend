@@ -17,7 +17,7 @@ import useToggle from '../../../../hooks/useToggle';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 // @types
-import { Invoice } from '../../../../@types/uploadfile';
+import { UploadFile } from '../../../../@types/uploadfile';
 // components
 import Iconify from '../../../../components/Iconify';
 //

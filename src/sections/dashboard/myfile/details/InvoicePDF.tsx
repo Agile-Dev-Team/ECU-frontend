@@ -4,14 +4,14 @@ import { Page, View, Text, Image, Document } from '@react-pdf/renderer';
 import { fCurrency } from '../../../../utils/formatNumber';
 import { fDate } from '../../../../utils/formatTime';
 // @types
-import { Invoice } from '../../../../@types/uploadfile';
+import { UploadFile } from '../../../../@types/uploadfile';
 //
 import styles from './InvoiceStyle';
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  invoice: Invoice;
+  invoice: UploadFile;
 };
 
 export default function InvoicePDF({ invoice }: Props) {
