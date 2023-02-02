@@ -17,7 +17,7 @@ import {
 import { fDate } from '../../../../utils/formatTime';
 import { fCurrency } from '../../../../utils/formatNumber';
 // _mock_
-import { Invoice } from '../../../../@types/uploadfile';
+import { UploadFile } from '../../../../@types/uploadfile';
 // components
 import Label from '../../../../components/Label';
 import Image from '../../../../components/Image';
@@ -37,7 +37,7 @@ const RowResultStyle = styled(TableRow)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 type Props = {
-  invoice?: Invoice;
+  invoice?: UploadFile;
 };
 
 export default function InvoiceDetails({ invoice }: Props) {
