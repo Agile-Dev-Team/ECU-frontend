@@ -11,7 +11,7 @@ import { Card, Stack } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 // @types
-import { Invoice, InvoiceItem, InvoiceAddress } from '../../../../@types/uploadfile';
+import { UploadFile, InvoiceItem, InvoiceAddress } from '../../../../@types/uploadfile';
 // mock
 import { _invoiceAddressFrom } from '../../../../_mock';
 // components
@@ -23,7 +23,7 @@ import InvoiceNewEditStatusDate from './InvoiceNewEditStatusDate';
 
 // ----------------------------------------------------------------------
 
-type IFormValuesProps = Omit<Invoice, 'createDate' | 'dueDate' | 'invoiceFrom' | 'invoiceTo'>;
+type IFormValuesProps = Omit<UploadFile, 'createDate' | 'dueDate' | 'invoiceFrom' | 'invoiceTo'>;
 
 interface FormValuesProps extends IFormValuesProps {
   createDate: Date | null;
