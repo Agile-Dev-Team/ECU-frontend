@@ -51,7 +51,6 @@ export const _fileRecords = [...Array(20)].map((_, index) => ({
     ]),
   })),
 }));
-console.log("mock:", _fileRecords);
 
 export const _invoiceAddressFrom = [...Array(5)].map((_, index) => ({
   id: _mock.id(index),

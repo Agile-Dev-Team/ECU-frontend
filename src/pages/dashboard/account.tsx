@@ -34,7 +34,6 @@ UserAccount.getLayout = function getLayout(page: React.ReactElement) {
 
 export default function UserAccount() {
   const { themeStretch } = useSettings();
-
   const { currentTab, onChangeTab } = useTabs('general');
 
   const ACCOUNT_TABS = [
@@ -70,7 +69,6 @@ export default function UserAccount() {
       component: <AccountChangePassword />,
     },
   ];
-
   return (
     <Page title="User: Account Settings">
       <Container maxWidth={themeStretch ? false : 'lg'}>

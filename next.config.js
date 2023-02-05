@@ -14,7 +14,7 @@ module.exports = withTM({
   trailingSlash: true,
   env: {
     // HOST
-    HOST_API_KEY: 'https://minimal-assets-api-dev.vercel.app',
+    HOST_API_KEY: 'http://localhost:8001',
     // MAPBOX
     MAPBOX_API: 'pk.eyJ1IjoicnluZGluYWxleCIsImEiOiJja3NqajVpNTMyOHVuMnVwMjQ1aTYxeTZ6In0.jSk9JMEDVGmO5LtYJ4Ejyg',
     // FIREBASE
@@ -31,5 +31,7 @@ module.exports = withTM({
     // AUTH0
     AUTH0_CLIENT_ID: '',
     AUTH0_DOMAIN: '',
+    REACT_APP_AWS_ACCESS_KEY: 'AKIA3N3BFZMWORGX6U3H',
+    REACT_APP_AWS_SECRET_ACCESS_KEY: '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'
   },
 });

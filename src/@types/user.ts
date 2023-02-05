@@ -1,9 +1,50 @@
 // ----------------------------------------------------------------------
+export type UserAccount = {
+  name: string;
+  email: string;
+  phoneNumber: string | null;
+  photoURL: string | null;
+  country: string | null;
+  address: string | null;
+  state: string | null;
+  city: string | null;
+  zipCode: string | null;
+  company?: string;
+  status?: string;
+  role?: string;
+  about: string | null;
+  isPublic: boolean;
+  profileImage:string | undefined;
+};
 
-export type UserInvoice = {
-  id: string;
-  createdAt: Date | string | number;
-  price: number;
+export type AccountState = {
+  isLoading: boolean;
+  error: Error | string | null;
+  _id: string | null;
+  profileImage: string | null;
+  phoneNumber: string | null;
+  name: string | null;
+  email: string | null;
+  address: string | null;
+  country: string | null;
+  state: string | null;
+  city: string | null;
+  zipCode: string | null;
+  status?: string;
+  role?: string | null;
+  about?: string | null;
+  isPublic?:boolean;
+  facebookLink: string | null;
+  instagramLink: string | null;
+  linkedinLink: string | null;
+  twitterLink: string | null;
+  bills: Bill[] | null;
+};
+
+export type Bill = {
+  id: string | null;
+  createdAt: Date | null | number;
+  price: number | 0;
 };
 
 export type CreditCard = {

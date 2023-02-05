@@ -89,7 +89,7 @@ export default function Register() {
           {mdUp && (
             <SectionStyle>
               <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-                Manage the job more effectively with Minimal
+                Get the best ECU file for your Motor Device
               </Typography>
               <Image
                 visibleByDefault
@@ -105,10 +105,10 @@ export default function Register() {
               <Box sx={{ mb: 5, display: 'flex', alignItems: 'center' }}>
                 <Box sx={{ flexGrow: 1 }}>
                   <Typography variant="h4" gutterBottom>
-                    Get started absolutely free.
+                    Register to ECU store
                   </Typography>
                   <Typography sx={{ color: 'text.secondary' }}>
-                    Free forever. No credit card needed.
+                    Free forever. Best service of ECU
                   </Typography>
                 </Box>
                 <Tooltip title={capitalCase(method)}>
@@ -126,7 +126,7 @@ export default function Register() {
               <RegisterForm />
 
               <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
-                By registering, I agree to Minimal&nbsp;
+                By registering, I agree to ECU&nbsp;
                 <Link underline="always" color="text.primary" href="#">
                   Terms of Service
                 </Link>

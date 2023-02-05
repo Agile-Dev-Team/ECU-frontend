@@ -5,6 +5,8 @@ import { Box, Divider, Typography, Stack, MenuItem, Avatar } from '@mui/material
 // components
 import MenuPopover from '../../../components/MenuPopover';
 import { IconButtonAnimate } from '../../../components/animate';
+import useAuth from 'src/hooks/useAuth';
+import { userInfo } from 'os';
 
 // ----------------------------------------------------------------------
 
@@ -15,19 +17,17 @@ const MENU_OPTIONS = [
   },
   {
     label: 'Profile',
-    linkTo: '/',
+    linkTo: '/dashboard/',
   },
-  {
-    label: 'Settings',
-    linkTo: '/',
-  },
+  
 ];
 
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
   const [open, setOpen] = useState<HTMLElement | null>(null);
-
+  const { user, logout } = useAuth();
+  console.log('AccountPopover', user);
   const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
     setOpen(event.currentTarget);
   };
@@ -77,10 +77,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            Rayan Moran
+            {user?.name}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            rayan.moran@gmail.com
+            {user?.email}
           </Typography>
         </Box>
 
@@ -96,7 +96,7 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <MenuItem sx={{ m: 1 }}>Logout</MenuItem>
+        <MenuItem sx={{ m: 1 }} onClick={(e)=>logout()}>Logout</MenuItem>
       </MenuPopover>
     </>
   );

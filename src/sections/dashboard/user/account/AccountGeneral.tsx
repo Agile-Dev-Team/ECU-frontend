@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 //import { useSnackbar } from 'notistack';
-import { useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
+import { useSelector } from 'react-redux'
 // form
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -21,11 +22,16 @@ import {
   RHFTextField,
   RHFUploadAvatar,
 } from '../../../../components/hook-form';
+import { UploadFile } from 'src/utils/UploadFile';
+import { s3Config } from 'src/config/aws-config';
 
+import { UserAccount } from 'src/@types/user';
+import { dispatch, RootState } from 'src/redux/store';
+import { setAccount, getAccount } from 'src/redux/slices/account';
 // ----------------------------------------------------------------------
 
 type FormValuesProps = {
-  displayName: string;
+  name: string;
   email: string;
   photoURL: File | any;
   phoneNumber: string | null;
@@ -41,23 +47,30 @@ type FormValuesProps = {
 export default function AccountGeneral() {
   //const { enqueueSnackbar } = useSnackbar()
   const { user } = useAuth();
-
+  const account : any = useSelector((state:RootState)=> state.account);
+  console.log('accountGeneral ', account);
   const UpdateUserSchema = Yup.object().shape({
-    displayName: Yup.string().required('Name is required'),
+    name: Yup.string().required('Name is required'),
+    email: Yup.string().required('Email is required'),
   });
+  useEffect(()=>{
+    console.log('user accountGeneral', user);
+    if(user && user.id)
+      dispatch(getAccount(user.id));
+  },[])
 
   const defaultValues = {
-    displayName: user?.displayName || '',
-    email: user?.email || '',
-    photoURL: user?.photoURL || '',
-    phoneNumber: user?.phoneNumber || '',
-    country: user?.country || '',
-    address: user?.address || '',
-    state: user?.state || '',
-    city: user?.city || '',
-    zipCode: user?.zipCode || '',
-    about: user?.about || '',
-    isPublic: user?.isPublic || false,
+    name: account?.name || '',
+    email: account?.email || '',
+    photoURL: account?.profileImage || '',
+    phoneNumber: account?.phoneNumber || '',
+    country: account?.country || '',
+    address: account?.address || '',
+    state: account?.state || '',
+    city: account?.city || '',
+    zipCode: account?.zipCode || '',
+    about: account?.about || '',
+    isPublic: account?.isPublic || false,
   };
 
   const methods = useForm<FormValuesProps>({
@@ -73,7 +86,17 @@ export default function AccountGeneral() {
 
   const onSubmit = async (data: FormValuesProps) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      console.log(s3Config);
+      console.log("accountgeneral:",data.photoURL);
+      const url = await UploadFile(data.photoURL, 'avatars');
+      console.log("first avatar",url);
+      const account : UserAccount = {
+        ...data,
+        profileImage: url,
+        photoURL: null,
+      }
+      console.log(account);
+      dispatch(setAccount(account, user?.id));
       //enqueueSnackbar('Update success!');
     } catch (error) {
       console.error(error);
@@ -142,7 +165,7 @@ export default function AccountGeneral() {
                 gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
               }}
             >
-              <RHFTextField name="displayName" label="Name" />
+              <RHFTextField name="name" label="Name" />
               <RHFTextField name="email" label="Email Address" />
 
               <RHFTextField name="phoneNumber" label="Phone Number" />

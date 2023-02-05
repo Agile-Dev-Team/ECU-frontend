@@ -41,12 +41,12 @@ const menuConfig = [
   {
     title: 'Login',
     icon: <Iconify icon={'eva:home-fill'} {...ICON_SIZE} />,
-    path: PATH_AUTH.loginUnprotected,
+    path: PATH_AUTH.login,
   },
   {
     title: 'Register',
     icon: <Iconify icon={'eva:home-fill'} {...ICON_SIZE} />,
-    path: PATH_AUTH.registerUnprotected,
+    path: PATH_AUTH.register,
   },
   // {
   //   title: 'Pages',
