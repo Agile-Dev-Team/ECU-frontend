@@ -14,36 +14,28 @@ const ICONS = {
   upload: getIcon('ic_invoice'),
 };
 
-const sidebarConfig = [
+export const sidebarUserConfig = [
   // GENERAL
   // ----------------------------------------------------------------------
   {
-    subheader: 'My Account',
+    subheader: 'User',
     items: [
-      { title: 'My account', path: '/dashboard/account', icon: ICONS.user },
       { title: 'Upload File', path: '/dashboard/upload', icon: ICONS.upload },
       { title: 'My Files', path: '/dashboard/myfile', icon: ICONS.file },
+      { title: 'My account', path: '/dashboard/account', icon: ICONS.user },
       { title: 'Cteate Support', path: '/dashboard/support', icon: ICONS.support },
-    ],
-  },
-
-  // MANAGEMENT
-  // ----------------------------------------------------------------------
-  {
-    subheader: 'management',
-    items: [
-      {
-        title: 'user',
-        path: '/dashboard/user',
-        icon: ICONS.user,
-        children: [
-          { title: 'Four', path: '/dashboard/user/four' },
-          { title: 'Five', path: '/dashboard/user/five' },
-          { title: 'Six', path: '/dashboard/user/six' },
-        ],
-      },
     ],
   },
 ];
 
-export default sidebarConfig;
+export const sidebarAdminConfig = [
+  {
+    subheader: 'ADMIN',
+    items: [
+      { title: 'Users', path: '/dashboard/admin/user/list', icon: ICONS.upload },
+      { title: 'Files', path: '/dashboard/admin/files/list', icon: ICONS.file },
+      { title: 'News', path: '/dashboard/admin/news/list', icon: ICONS.user },
+      { title: 'Payments', path: '/dashboard/admin/payments/list', icon: ICONS.support },
+    ],
+  },
+];

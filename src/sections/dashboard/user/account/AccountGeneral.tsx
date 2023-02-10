@@ -48,6 +48,7 @@ export default function AccountGeneral() {
   //const { enqueueSnackbar } = useSnackbar()
   const { user } = useAuth();
   const account : any = useSelector((state:RootState)=> state.account);
+  console.log(user);
   console.log('accountGeneral ', account);
   const UpdateUserSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
@@ -55,7 +56,7 @@ export default function AccountGeneral() {
   });
   useEffect(()=>{
     console.log('user accountGeneral', user);
-    if(user && user.id)
+    if(user && user.id && !account.name)
       dispatch(getAccount(user.id));
   },[])
 
@@ -72,7 +73,7 @@ export default function AccountGeneral() {
     about: account?.about || '',
     isPublic: account?.isPublic || false,
   };
-
+  console.log(defaultValues);
   const methods = useForm<FormValuesProps>({
     resolver: yupResolver(UpdateUserSchema),
     defaultValues,

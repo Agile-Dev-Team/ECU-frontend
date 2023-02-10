@@ -1,13 +1,14 @@
 import { memo } from 'react';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Container ,AppBar } from '@mui/material';
+import { Container, AppBar } from '@mui/material';
+import useAuth from 'src/hooks/useAuth';
 // config
 import { HEADER } from '../../../config';
 // components
 import { NavSectionHorizontal } from '../../../components/nav-section';
 //
-import navConfig from './NavConfig';
+import { sidebarAdminConfig, sidebarUserConfig } from './NavConfig';
 
 // ----------------------------------------------------------------------
 
@@ -28,10 +29,14 @@ const RootStyle = styled(AppBar)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 function NavbarHorizontal() {
+  const { user } = useAuth();
+  console.log('NavbarHorizontal', user);
   return (
     <RootStyle>
       <Container maxWidth={false}>
-        <NavSectionHorizontal navConfig={navConfig} />
+        <NavSectionHorizontal
+          navConfig={user?.role === 'User' ? sidebarUserConfig : sidebarAdminConfig}
+        />
       </Container>
     </RootStyle>
   );

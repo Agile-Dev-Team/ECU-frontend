@@ -32,7 +32,7 @@ export type ProductReview = {
 export type Product = {
   id: string;
   cover: string;
-  images: string[];
+  image: string;
   name: string;
   price: number;
   code: string;

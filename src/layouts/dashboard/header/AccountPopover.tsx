@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux'
+import { useRouter } from 'next/router';
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar } from '@mui/material';
@@ -7,6 +9,7 @@ import MenuPopover from '../../../components/MenuPopover';
 import { IconButtonAnimate } from '../../../components/animate';
 import useAuth from 'src/hooks/useAuth';
 import { userInfo } from 'os';
+import { RootState } from 'src/redux/store';
 
 // ----------------------------------------------------------------------
 
@@ -27,12 +30,18 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const [open, setOpen] = useState<HTMLElement | null>(null);
   const { user, logout } = useAuth();
-  console.log('AccountPopover', user);
+  const account : any = useSelector((state:RootState)=> state.account);
+  const router = useRouter();
+
   const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
     setOpen(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = (linkTo : string) => {
+    setOpen(null);
+    router.push(linkTo);
+  };
+  const handleClose1 = () => {
     setOpen(null);
   };
 
@@ -56,7 +65,7 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          src="https://minimal-assets-api-dev.vercel.app/assets/images/avatars/avatar_5.jpg"
+          src={account.profileImage}
           alt="Rayan Moran"
         />
       </IconButtonAnimate>
@@ -64,7 +73,7 @@ export default function AccountPopover() {
       <MenuPopover
         open={Boolean(open)}
         anchorEl={open}
-        onClose={handleClose}
+        onClose={handleClose1}
         sx={{
           p: 0,
           mt: 1.5,
@@ -88,7 +97,7 @@ export default function AccountPopover() {
 
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
-            <MenuItem key={option.label} onClick={handleClose}>
+            <MenuItem key={option.label} onClick={(e) => handleClose(option.linkTo)}>
               {option.label}
             </MenuItem>
           ))}

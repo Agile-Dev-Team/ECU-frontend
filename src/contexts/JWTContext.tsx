@@ -86,14 +86,13 @@ function AuthProvider({ children }: AuthProviderProps) {
       try {
         const accessToken =
           typeof window !== 'undefined' ? localStorage.getItem('accessToken') : '';
-        console.log(state);
         
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
           
           const response:any = jwtDecode(accessToken);
           const user = {...response.userProfile};
-
+          console.log('AuthProvider', response.userProfile);
           dispatch({
             type: Types.Initial,
             payload: {
@@ -126,7 +125,7 @@ function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   const login = async (email: string, password: string) => {
-    const response = await axios.post('/auth/login', {
+    const response = await axios.post('/api/auth/login', {
       email,
       password,
     });
@@ -142,7 +141,7 @@ function AuthProvider({ children }: AuthProviderProps) {
   };
 
   const register = async (email: string, password: string, firstName: string, lastName: string) => {
-    const response = await axios.post('/auth/register', {
+    const response = await axios.post('/api/auth/register', {
       email,
       password,
       name: firstName+' '+lastName

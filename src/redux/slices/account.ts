@@ -77,7 +77,7 @@ export function getAccount(id: string) {
     dispatch(slice.actions.startLoading());
     try {
       console.log('slice account getAccount');
-      const response = await axios.get(`/user/${id}`);
+      const response = await axios.get(`/api/user/${id}`);
       console.log('getaccount result', response.data);
       dispatch(slice.actions.getAccount(response.data));
     } catch (error) {
@@ -89,7 +89,7 @@ export function setAccount(account: UserAccount, id: string) {
   return async () => {
     dispatch(slice.actions.startLoading());
     try{
-      await axios.put(`/user/${id}`,{
+      await axios.put(`/api/user/${id}`,{
         ...account
       });
       dispatch(slice.actions.updateAccount(account));

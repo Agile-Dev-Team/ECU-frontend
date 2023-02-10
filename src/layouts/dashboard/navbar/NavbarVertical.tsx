@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import useAuth from 'src/hooks/useAuth';
 // next
 import { useRouter } from 'next/router';
 // @mui
@@ -16,7 +17,7 @@ import Logo from '../../../components/Logo';
 import Scrollbar from '../../../components/Scrollbar';
 import { NavSectionVertical } from '../../../components/nav-section';
 //
-import navConfig from './NavConfig';
+import { sidebarAdminConfig, sidebarUserConfig } from './NavConfig';
 import NavbarDocs from './NavbarDocs';
 import NavbarAccount from './NavbarAccount';
 import CollapseButton from './CollapseButton';
@@ -46,6 +47,10 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }: Props)
 
   const isDesktop = useResponsive('up', 'lg');
 
+  const { user } = useAuth();
+
+  console.log('NavbarVertical', user);
+
   const { isCollapse, collapseClick, collapseHover, onToggleCollapse, onHoverEnter, onHoverLeave } =
     useCollapseDrawer();
 
@@ -53,7 +58,6 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }: Props)
     if (isOpenSidebar) {
       onCloseSidebar();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   const renderContent = (
@@ -84,7 +88,7 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }: Props)
         <NavbarAccount isCollapse={isCollapse} />
       </Stack>
 
-      <NavSectionVertical navConfig={navConfig} isCollapse={isCollapse} />
+      <NavSectionVertical navConfig={user?.role === 'User' ? sidebarUserConfig : sidebarAdminConfig} isCollapse={isCollapse} />
 
       <Box sx={{ flexGrow: 1 }} />
 
