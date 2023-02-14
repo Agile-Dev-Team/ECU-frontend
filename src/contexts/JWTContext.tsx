@@ -92,7 +92,7 @@ function AuthProvider({ children }: AuthProviderProps) {
           
           const response:any = jwtDecode(accessToken);
           const user = {...response.userProfile};
-          console.log('AuthProvider', response.userProfile);
+          console.log('AuthProvider: ', response.userProfile);
           dispatch({
             type: Types.Initial,
             payload: {
@@ -132,10 +132,12 @@ function AuthProvider({ children }: AuthProviderProps) {
     const { token, id } = response.data;
     console.log('loginUser',token);
     setSession(token);
+    const dec_data:any = jwtDecode(token);
+    const user = {...dec_data.userProfile};
     dispatch({
       type: Types.Login,
       payload: {
-        user:{id},
+        user:user
       },
     });
   };

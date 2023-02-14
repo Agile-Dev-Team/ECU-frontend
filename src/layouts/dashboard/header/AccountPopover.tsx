@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router';
 // @mui
@@ -10,6 +10,7 @@ import { IconButtonAnimate } from '../../../components/animate';
 import useAuth from 'src/hooks/useAuth';
 import { userInfo } from 'os';
 import { RootState } from 'src/redux/store';
+import { AuthUser } from 'src/@types/auth';
 
 // ----------------------------------------------------------------------
 
@@ -30,13 +31,17 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const [open, setOpen] = useState<HTMLElement | null>(null);
   const { user, logout } = useAuth();
+  console.log(user);
   const account : any = useSelector((state:RootState)=> state.account);
   const router = useRouter();
-
+  const [ authUser, setAuthUser ] = useState<AuthUser|null>(null);
   const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
     setOpen(event.currentTarget);
   };
-
+  useEffect(()=>{
+    setAuthUser(user);
+    console.log('header: ', user);
+  },[user])
   const handleClose = (linkTo : string) => {
     setOpen(null);
     router.push(linkTo);
@@ -86,10 +91,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {user?.name}
+            {authUser?.name}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {user?.email}
+            {authUser?.email}
           </Typography>
         </Box>
 
