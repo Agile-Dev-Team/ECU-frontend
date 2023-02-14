@@ -1,5 +1,6 @@
 // ----------------------------------------------------------------------
 export type UserAccount = {
+  _id: string;
   name: string;
   email: string;
   phoneNumber: string | null;
@@ -16,6 +17,12 @@ export type UserAccount = {
   isPublic: boolean;
   profileImage:string | undefined;
 };
+
+export type UserListState = {
+  isLoading: boolean;
+  users: UserManager[];
+  error: Error | string | null;
+}
 
 export type AccountState = {
   isLoading: boolean;
@@ -98,7 +105,7 @@ export type Profile = {
 };
 
 export type UserManager = {
-  id: string;
+  _id: string;
   avatarUrl: string;
   name: string;
   email: string;
@@ -125,45 +132,3 @@ export type UserData = {
   position: string;
 };
 
-export type NotificationSettings = {
-  activityComments: boolean;
-  activityAnswers: boolean;
-  activityFollows: boolean;
-  applicationNews: boolean;
-  applicationProduct: boolean;
-  applicationBlog: boolean;
-};
-
-export type Friend = {
-  id: string;
-  avatarUrl: string;
-  name: string;
-  role: string;
-};
-
-export type UserPost = {
-  id: string;
-  author: {
-    id: string;
-    avatarUrl: string;
-    name: string;
-  };
-  isLiked: boolean;
-  createdAt: Date | string | number;
-  media: string;
-  message: string;
-  personLikes: {
-    name: string;
-    avatarUrl: string;
-  }[];
-  comments: {
-    id: string;
-    author: {
-      id: string;
-      avatarUrl: string;
-      name: string;
-    };
-    createdAt: Date | string | number;
-    message: string;
-  }[];
-};

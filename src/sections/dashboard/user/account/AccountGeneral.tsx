@@ -93,6 +93,7 @@ export default function AccountGeneral() {
       console.log("first avatar",url);
       const account : UserAccount = {
         ...data,
+        _id: '',
         profileImage: url,
         photoURL: null,
       }

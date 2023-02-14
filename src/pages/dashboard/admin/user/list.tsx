@@ -1,5 +1,5 @@
 import { paramCase } from 'change-case';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // next
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
@@ -28,7 +28,7 @@ import useTabs from '../../../../hooks/useTabs';
 import useSettings from '../../../../hooks/useSettings';
 import useTable, { getComparator, emptyRows } from '../../../../hooks/useTable';
 // @types
-import { UserManager } from '../../../../@types/user';
+import { UserListState, UserManager } from '../../../../@types/user';
 // _mock_
 import { _userList } from '../../../../_mock';
 // layouts
@@ -46,6 +46,10 @@ import {
 } from '../../../../components/table';
 // sections
 import { UserTableToolbar, UserTableRow } from '../../../../sections/dashboard/admin/user/list';
+
+import { getUsers, removeUsers } from '../../../../redux/slices/admin/user';
+import { dispatch, RootState } from '../../../../redux/store';
+import { useSelector } from 'react-redux';
 
 // ----------------------------------------------------------------------
 
@@ -100,18 +104,28 @@ export default function UserList() {
     onChangePage,
     onChangeRowsPerPage,
   } = useTable();
+  
+  const users: UserManager[] = useSelector((state: RootState) => state.users.users);
 
   const { themeStretch } = useSettings();
 
   const { push } = useRouter();
 
-  const [tableData, setTableData] = useState(_userList);
+  const [tableData, setTableData] = useState<UserManager[]>([]);
 
   const [filterName, setFilterName] = useState('');
 
   const [filterRole, setFilterRole] = useState('all');
 
   const { currentTab: filterStatus, onChangeTab: onChangeFilterStatus } = useTabs('all');
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [])
+
+  useEffect(() => {
+    setTableData(users)
+  }, [users])
 
   const handleFilterName = (filterName: string) => {
     setFilterName(filterName);
@@ -123,15 +137,14 @@ export default function UserList() {
   };
 
   const handleDeleteRow = (id: string) => {
-    const deleteRow = tableData.filter((row) => row.id !== id);
-    setSelected([]);
-    setTableData(deleteRow);
+    const ids: string[] = [];
+    ids.push(id);
+    dispatch(removeUsers(ids));
   };
 
   const handleDeleteRows = (selected: string[]) => {
-    const deleteRows = tableData.filter((row) => !selected.includes(row.id));
+    dispatch(removeUsers(selected));
     setSelected([]);
-    setTableData(deleteRows);
   };
 
   const handleEditRow = (id: string) => {
@@ -206,7 +219,7 @@ export default function UserList() {
                   onSelectAllRows={(checked) =>
                     onSelectAllRows(
                       checked,
-                      tableData.map((row) => row.id)
+                      tableData.map((row: any) => row._id)
                     )
                   }
                   actions={
@@ -230,7 +243,7 @@ export default function UserList() {
                   onSelectAllRows={(checked) =>
                     onSelectAllRows(
                       checked,
-                      tableData.map((row) => row.id)
+                      tableData.map((row: any) => row._id)
                     )
                   }
                 />
@@ -240,11 +253,11 @@ export default function UserList() {
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
                       <UserTableRow
-                        key={row.id}
+                        key={row._id}
                         row={row}
-                        selected={selected.includes(row.id)}
-                        onSelectRow={() => onSelectRow(row.id)}
-                        onDeleteRow={() => handleDeleteRow(row.id)}
+                        selected={selected.includes(row._id)}
+                        onSelectRow={() => onSelectRow(row._id)}
+                        onDeleteRow={() => handleDeleteRow(row._id)}
                         onEditRow={() => handleEditRow(row.name)}
                       />
                     ))}
