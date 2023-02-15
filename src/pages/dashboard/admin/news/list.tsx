@@ -44,9 +44,9 @@ import {
 } from '../../../../components/table';
 // sections
 import {
-  ProductTableRow,
-  ProductTableToolbar,
-} from '../../../../sections/dashboard/admin/e-commerce/product-list';
+  NewsTableRow,
+  NewsTableToolbar,
+} from '../../../../sections/dashboard/admin/news/list';
 
 // ----------------------------------------------------------------------
 
@@ -128,7 +128,7 @@ export default function EcommerceProductList() {
   };
 
   const handleEditRow = (id: string) => {
-    push(PATH_DASHBOARD.eCommerce.edit(paramCase(id)));
+    push(PATH_DASHBOARD.news.edit(paramCase(id)));
   };
 
   const dataFiltered = applySortFilter({
@@ -150,21 +150,21 @@ export default function EcommerceProductList() {
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             {
               name: 'E-Commerce',
-              href: PATH_DASHBOARD.eCommerce.root,
+              href: PATH_DASHBOARD.news.root,
             },
             { name: 'Product List' },
           ]}
           action={
-            <NextLink href={PATH_DASHBOARD.eCommerce.new} passHref>
+            <NextLink href={PATH_DASHBOARD.news.new} passHref>
               <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
-                New Product
+                Add a News
               </Button>
             </NextLink>
           }
         />
 
         <Card>
-          <ProductTableToolbar filterName={filterName} onFilterName={handleFilterName} />
+          <NewsTableToolbar filterName={filterName} onFilterName={handleFilterName} />
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: 960, position: 'relative' }}>
@@ -210,7 +210,7 @@ export default function EcommerceProductList() {
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) =>
                       row ? (
-                        <ProductTableRow
+                        <NewsTableRow
                           key={row.id}
                           row={row}
                           selected={selected.includes(row.id)}

@@ -17,7 +17,7 @@ import Layout from '../../../../../../layouts';
 import Page from '../../../../../../components/Page';
 import HeaderBreadcrumbs from '../../../../../../components/HeaderBreadcrumbs';
 // sections
-import ProductNewEditForm from '../../../../../../sections/dashboard/admin/e-commerce/ProductNewEditForm';
+import NewsEditForm from '../../../../../../sections/dashboard/admin/news/NewsEditForm';
 
 // ----------------------------------------------------------------------
 
@@ -45,21 +45,21 @@ export default function EcommerceProductEdit() {
   }, [dispatch]);
 
   return (
-    <Page title="Ecommerce: Edit product">
+    <Page title="Edit News">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Edit product"
+          heading="Edit news"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             {
-              name: 'E-Commerce',
-              href: PATH_DASHBOARD.eCommerce.root,
+              name: 'news',
+              href: PATH_DASHBOARD.news.root,
             },
             { name: name as string },
           ]}
         />
 
-        <ProductNewEditForm isEdit currentProduct={currentProduct} />
+        <NewsEditForm isEdit currentProduct={currentProduct} />
       </Container>
     </Page>
   );

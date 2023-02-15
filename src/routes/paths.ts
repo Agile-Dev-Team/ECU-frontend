@@ -65,16 +65,12 @@ export const PATH_DASHBOARD = {
     edit: (name: string) => path(ROOTS_DASHBOARD, `/user/${name}/edit`),
     demoEdit: path(ROOTS_DASHBOARD, `/user/reece-chung/edit`),
   },
-  eCommerce: {
-    root: path(ROOTS_DASHBOARD, '/e-commerce'),
-    shop: path(ROOTS_DASHBOARD, '/e-commerce/shop'),
-    list: path(ROOTS_DASHBOARD, '/e-commerce/list'),
-    checkout: path(ROOTS_DASHBOARD, '/e-commerce/checkout'),
+  news: {
+    root: path(ROOTS_DASHBOARD, '/admin/news'),
+    list: path(ROOTS_DASHBOARD, '/admin/news/list'),
     new: path(ROOTS_DASHBOARD, '/admin/news/product/new'),
-    view: (name: string) => path(ROOTS_DASHBOARD, `/e-commerce/product/${name}`),
-    edit: (name: string) => path(ROOTS_DASHBOARD, `/e-commerce/product/${name}/edit`),
-    demoEdit: path(ROOTS_DASHBOARD, '/e-commerce/product/nike-blazer-low-77-vintage/edit'),
-    demoView: path(ROOTS_DASHBOARD, '/e-commerce/product/nike-air-force-1-ndestrukt'),
+    view: (name: string) => path(ROOTS_DASHBOARD, `/admin/news/product/${name}`),
+    edit: (name: string) => path(ROOTS_DASHBOARD, `/admin/news/product/${name}/edit`),
   },
   invoice: {
     root: path(ROOTS_DASHBOARD, '/invoice'),

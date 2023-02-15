@@ -10,7 +10,7 @@ import Layout from '../../../../../layouts';
 import Page from '../../../../../components/Page';
 import HeaderBreadcrumbs from '../../../../../components/HeaderBreadcrumbs';
 // sections
-import ProductNewEditForm from '../../../../../sections/dashboard/admin/e-commerce/ProductNewEditForm';
+import NewsEditForm from '../../../../../sections/dashboard/admin/news/NewsEditForm';
 
 // ----------------------------------------------------------------------
 
@@ -24,20 +24,20 @@ export default function EcommerceProductCreate() {
   const { themeStretch } = useSettings();
 
   return (
-    <Page title="Ecommerce: Create a new product">
+    <Page title="Add a News">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Create a new product"
+          heading="Add a News"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             {
               name: 'News',
-              href: PATH_DASHBOARD.eCommerce.root,
+              href: PATH_DASHBOARD.news.root,
             },
             { name: 'New' },
           ]}
         />
-        <ProductNewEditForm />
+        <NewsEditForm />
       </Container>
     </Page>
   );
