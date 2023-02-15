@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import axios from '../../../utils/axios';
 
-import { UserListState } from '../../../@types/user';
+import { UserListState, UserManager } from '../../../@types/user';
 
 import { dispatch } from "../../store";
 
@@ -34,17 +34,23 @@ const slice = createSlice({
       state.isLoading = false;
     },
 
-    // GET USER BY ID
-    // getUserSuccess(state, action) {}
+    // UPDATE USER
+    updateUserSuccess(state, action) {
+      const updatedUser = action.payload;
+      const updatedUsers = state.users.map(user => {
+        if(user._id === updatedUser._id)
+          return updatedUser;
+        return user
+      });
 
-    // REMOVE USER BY ID
+      state.isLoading = false;
+      state.users = updatedUsers;
+    },
+
+    // REMOVE USER
     removeUserSuccess(state, action) {
-      const users = state.users.filter((user) => action.payload.indexOf(user._id) === -1);
-
-      return {
-        ...state,
-        users : [...users]
-      }
+      state.users = state.users.filter((user) => action.payload.indexOf(user._id) === -1);
+      state.isLoading = false;
     }
   }
 });
@@ -58,9 +64,23 @@ export function getUsers() {
       const response = await axios.get('/admin/user/');
       dispatch(slice.actions.getUsersSuccess(response.data))
     } catch (error) {
-      dispatch(slice.actions.hasError(error))
+      dispatch(slice.actions.hasError(error));
     }
   };
+}
+
+export function updateUser(account: UserManager, id: string | undefined) {
+  return async () => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axios.put(`/admin/user/${id}`, {
+        ...account
+      });
+      dispatch(slice.actions.updateUserSuccess(account));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  }
 }
 
 export function removeUsers(ids: string[]) {

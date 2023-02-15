@@ -7,8 +7,6 @@ import { Container } from '@mui/material';
 import { PATH_DASHBOARD } from '../../../../../routes/paths';
 // hooks
 import useSettings from '../../../../../hooks/useSettings';
-// _mock_
-import { _userList } from '../../../../../_mock';
 // layouts
 import Layout from '../../../../../layouts';
 // components
@@ -16,6 +14,12 @@ import Page from '../../../../../components/Page';
 import HeaderBreadcrumbs from '../../../../../components/HeaderBreadcrumbs';
 // sections
 import UserNewEditForm from '../../../../../sections/dashboard/admin/user/UserNewEditForm';
+
+import { useSelector } from 'react-redux';
+
+import { dispatch, RootState } from '../../../../../redux/store';
+
+import { UserManager } from '../../../../../@types/user';
 
 // ----------------------------------------------------------------------
 
@@ -30,9 +34,11 @@ export default function UserEdit() {
 
   const { query } = useRouter();
 
-  const { name } = query;
+  const { id } = query;
 
-  const currentUser = _userList.find((user) => paramCase(user.name) === name);
+  const users: UserManager[] = useSelector((state: RootState) => state.users.users);
+
+  const currentUser = users.find((user) => paramCase(user._id) === id);
 
   return (
     <Page title="User: Edit user">
@@ -42,7 +48,7 @@ export default function UserEdit() {
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             { name: 'User', href: PATH_DASHBOARD.user.list },
-            { name: capitalCase(name as string) },
+            { name: currentUser?.name as string },
           ]}
         />
 
