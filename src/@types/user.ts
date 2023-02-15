@@ -106,7 +106,7 @@ export type Profile = {
 
 export type UserManager = {
   _id: string;
-  avatarUrl: string;
+  profileImage: string | undefined;
   name: string;
   email: string;
   phoneNumber: string;
@@ -119,6 +119,7 @@ export type UserManager = {
   isVerified: boolean;
   status: string;
   role: string;
+  avatarUrl: string | null;
 };
 
 export type UserData = {

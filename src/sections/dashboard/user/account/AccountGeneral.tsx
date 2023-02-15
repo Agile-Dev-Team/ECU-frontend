@@ -87,9 +87,11 @@ export default function AccountGeneral() {
 
   const onSubmit = async (data: FormValuesProps) => {
     try {
+      let url;
       console.log(s3Config);
       console.log("accountgeneral:",data.photoURL);
-      const url = await UploadFile(data.photoURL, 'avatars');
+      if(data.photoURL.path.substring(0, data.photoURL.length - 4) !== defaultValues.photoURL)
+        url = await UploadFile(data.photoURL, 'avatars');
       console.log("first avatar",url);
       const account : UserAccount = {
         ...data,

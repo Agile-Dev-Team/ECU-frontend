@@ -28,7 +28,7 @@ import useTabs from '../../../../hooks/useTabs';
 import useSettings from '../../../../hooks/useSettings';
 import useTable, { getComparator, emptyRows } from '../../../../hooks/useTable';
 // @types
-import { UserListState, UserManager } from '../../../../@types/user';
+import { UserManager } from '../../../../@types/user';
 // _mock_
 import { _userList } from '../../../../_mock';
 // layouts
@@ -258,7 +258,7 @@ export default function UserList() {
                         selected={selected.includes(row._id)}
                         onSelectRow={() => onSelectRow(row._id)}
                         onDeleteRow={() => handleDeleteRow(row._id)}
-                        onEditRow={() => handleEditRow(row.name)}
+                        onEditRow={() => handleEditRow(row._id)}
                       />
                     ))}
 

@@ -1,6 +1,5 @@
 import * as Yup from 'yup';
 import { useCallback, useEffect, useMemo } from 'react';
-import { useSnackbar } from 'notistack';
 // next
 import { useRouter } from 'next/router';
 // form
@@ -27,9 +26,31 @@ import {
   RHFUploadAvatar,
 } from '../../../../components/hook-form';
 
+import { UploadFile } from 'src/utils/UploadFile';
+import { s3Config } from 'src/config/aws-config';
+import { updateUser } from 'src/redux/slices/admin/user';
+
+import { dispatch } from 'src/redux/store';
+
 // ----------------------------------------------------------------------
 
-type FormValuesProps = UserManager;
+type FormValuesProps = {
+  name: string;
+  email: string;
+  avatarUrl: File | any;
+  phoneNumber: string;
+  country: string;
+  address: string;
+  state: string;
+  city: string;
+  zipCode: string;
+  about: string;
+  isPublic: boolean;
+  company: string;
+  isVerified: boolean;
+  status: string;
+  role: string;
+};
 
 type Props = {
   isEdit?: boolean;
@@ -39,7 +60,7 @@ type Props = {
 export default function UserNewEditForm({ isEdit = false, currentUser }: Props) {
   const { push } = useRouter();
 
-  const { enqueueSnackbar } = useSnackbar();
+  //const { enqueueSnackbar } = useSnackbar();
 
   const NewUserSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
@@ -64,7 +85,7 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
       state: currentUser?.state || '',
       city: currentUser?.city || '',
       zipCode: currentUser?.zipCode || '',
-      avatarUrl: currentUser?.avatarUrl || '',
+      avatarUrl: currentUser?.profileImage || '',
       isVerified: currentUser?.isVerified || true,
       status: currentUser?.status,
       company: currentUser?.company || '',
@@ -73,6 +94,8 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentUser]
   );
+
+  console.log(currentUser);
 
   const methods = useForm<FormValuesProps>({
     resolver: yupResolver(NewUserSchema),
@@ -102,10 +125,21 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
 
   const onSubmit = async (data: FormValuesProps) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
-      enqueueSnackbar(!isEdit ? 'Create success!' : 'Update success!');
-      push(PATH_DASHBOARD.user.list);
+      let url;
+      console.log(s3Config);
+      console.log("accountgeneral:",data.avatarUrl);
+      if(data.avatarUrl.path.substring(0, data.avatarUrl.length - 4) !== currentUser?.profileImage)
+        url = await UploadFile(data.avatarUrl, 'avatars');
+      console.log("first avatar",url);
+      const account : UserManager = {
+        ...data,
+        _id: currentUser?._id ? currentUser?._id : '',
+        profileImage: url,
+        avatarUrl: null,
+      }
+      console.log(account);
+      dispatch(updateUser(account, currentUser?._id));
+      //enqueueSnackbar('Update success!');
     } catch (error) {
       console.error(error);
     }
