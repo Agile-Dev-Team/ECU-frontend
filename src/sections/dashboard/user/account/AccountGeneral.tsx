@@ -88,18 +88,14 @@ export default function AccountGeneral() {
   const onSubmit = async (data: FormValuesProps) => {
     try {
       let url;
-      console.log(s3Config);
-      console.log("accountgeneral:",data.photoURL);
-      if(data.photoURL.path.substring(0, data.photoURL.length - 4) !== defaultValues.photoURL)
+      if(data.photoURL.path.substring(0, data.photoURL.path.length - 4) !== defaultValues.photoURL)
         url = await UploadFile(data.photoURL, 'avatars');
-      console.log("first avatar",url);
       const account : UserAccount = {
         ...data,
         _id: '',
         profileImage: url,
         photoURL: null,
       }
-      console.log(account);
       dispatch(setAccount(account, user?.id));
       //enqueueSnackbar('Update success!');
     } catch (error) {

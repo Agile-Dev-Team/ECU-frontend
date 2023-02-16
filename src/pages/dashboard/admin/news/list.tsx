@@ -21,6 +21,7 @@ import {
 // redux
 import { useDispatch, useSelector } from '../../../../redux/store';
 import { getProducts } from '../../../../redux/slices/product';
+import { getNewsList } from '../../../../redux/slices/admin/news';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 // hooks
@@ -28,6 +29,7 @@ import useSettings from '../../../../hooks/useSettings';
 import useTable, { getComparator, emptyRows } from '../../../../hooks/useTable';
 // @types
 import { Product } from '../../../../@types/product';
+import { News } from '../../../../@types/news';
 // layouts
 import Layout from '../../../../layouts';
 // components
@@ -51,10 +53,10 @@ import {
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Product', align: 'left' },
-  { id: 'createdAt', label: 'Create at', align: 'left' },
-  { id: 'inventoryType', label: 'Status', align: 'center', width: 180 },
-  { id: 'price', label: 'Price', align: 'right' },
+  { id: 'title', label: 'Title', align: 'left' },
+  { id: 'imageUrl', label: 'Picture', align: 'left' },
+  { id: 'createdAt', label: 'CreatedAt', align: 'left' },
+  { id: 'status', label: 'Status', align: 'center', width: 180 },
   { id: '' },
 ];
 
@@ -94,21 +96,21 @@ export default function EcommerceProductList() {
 
   const dispatch = useDispatch();
 
-  const { products, isLoading } = useSelector((state) => state.product);
+  const { news, isLoading } = useSelector((state) => state.news);
 
-  const [tableData, setTableData] = useState<Product[]>([]);
+  const [tableData, setTableData] = useState<News[]>([]);
 
   const [filterName, setFilterName] = useState('');
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getNewsList());
   }, [dispatch]);
 
   useEffect(() => {
-    if (products.length) {
-      setTableData(products);
+    if (news.length) {
+      setTableData(news);
     }
-  }, [products]);
+  }, [news]);
 
   const handleFilterName = (filterName: string) => {
     setFilterName(filterName);
@@ -116,13 +118,13 @@ export default function EcommerceProductList() {
   };
 
   const handleDeleteRow = (id: string) => {
-    const deleteRow = tableData.filter((row) => row.id !== id);
+    const deleteRow = tableData.filter((row) => row._id !== id);
     setSelected([]);
     setTableData(deleteRow);
   };
 
   const handleDeleteRows = (selected: string[]) => {
-    const deleteRows = tableData.filter((row) => !selected.includes(row.id));
+    const deleteRows = tableData.filter((row) => !selected.includes(row._id));
     setSelected([]);
     setTableData(deleteRows);
   };
@@ -142,17 +144,17 @@ export default function EcommerceProductList() {
   const isNotFound = (!dataFiltered.length && !!filterName) || (!isLoading && !dataFiltered.length);
 
   return (
-    <Page title="Ecommerce: Product List">
+    <Page title="News list">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Product List"
+          heading="News list"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             {
-              name: 'E-Commerce',
+              name: 'news',
               href: PATH_DASHBOARD.news.root,
             },
-            { name: 'Product List' },
+            { name: 'list' },
           ]}
           action={
             <NextLink href={PATH_DASHBOARD.news.new} passHref>
@@ -176,7 +178,7 @@ export default function EcommerceProductList() {
                   onSelectAllRows={(checked) =>
                     onSelectAllRows(
                       checked,
-                      tableData.map((row) => row.id)
+                      tableData.map((row) => row._id)
                     )
                   }
                   actions={
@@ -200,7 +202,7 @@ export default function EcommerceProductList() {
                   onSelectAllRows={(checked) =>
                     onSelectAllRows(
                       checked,
-                      tableData.map((row) => row.id)
+                      tableData.map((row) => row._id)
                     )
                   }
                 />
@@ -213,10 +215,10 @@ export default function EcommerceProductList() {
                         <NewsTableRow
                           key={row.id}
                           row={row}
-                          selected={selected.includes(row.id)}
-                          onSelectRow={() => onSelectRow(row.id)}
-                          onDeleteRow={() => handleDeleteRow(row.id)}
-                          onEditRow={() => handleEditRow(row.name)}
+                          selected={selected.includes(row._id)}
+                          onSelectRow={() => onSelectRow(row._id)}
+                          onDeleteRow={() => handleDeleteRow(row._id)}
+                          onEditRow={() => handleEditRow(row._id)}
                         />
                       ) : (
                         !isNotFound && <TableSkeleton key={index} sx={{ height: denseHeight }} />
@@ -264,7 +266,7 @@ function applySortFilter({
   comparator,
   filterName,
 }: {
-  tableData: Product[];
+  tableData: News[];
   comparator: (a: any, b: any) => number;
   filterName: string;
 }) {

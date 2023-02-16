@@ -10,6 +10,7 @@ import kanbanReducer from './slices/kanban';
 import accountReducer from './slices/account';
 
 import userReducer from './slices/admin/user'
+import newsReducer from './slices/admin/news'
 // ----------------------------------------------------------------------
 
 const createNoopStorage = () => ({
@@ -48,8 +49,11 @@ const rootReducer = combineReducers({
   calendar: calendarReducer,
   kanban: kanbanReducer,
   product: persistReducer(productPersistConfig, productReducer),
+  
+  //admin reducer
 
   users: userReducer,
+  news: newsReducer,
 });
 
 export { rootPersistConfig, rootReducer };

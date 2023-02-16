@@ -34,11 +34,11 @@ export default function EcommerceProductEdit() {
 
   const { query } = useRouter();
 
-  const { name } = query;
+  const { id } = query;
 
-  const { products } = useSelector((state) => state.product);
+  const { news } = useSelector((state) => state.news);
 
-  const currentProduct = products.find((product) => paramCase(product.name) === name);
+  const currentNews = news.find((item) => paramCase(item._id) === id);
 
   useEffect(() => {
     dispatch(getProducts());
@@ -55,11 +55,11 @@ export default function EcommerceProductEdit() {
               name: 'news',
               href: PATH_DASHBOARD.news.root,
             },
-            { name: name as string },
+            { name: id as string },
           ]}
         />
 
-        <NewsEditForm isEdit currentProduct={currentProduct} />
+        <NewsEditForm isEdit currentNews={currentNews} />
       </Container>
     </Page>
   );

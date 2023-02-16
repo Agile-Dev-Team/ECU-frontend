@@ -2,8 +2,10 @@
 export type News = {
   _id: string;
   title: string;
-  image: string;
+  imageUrl: string;
   content: string;
+  status: boolean;
+  createdAt?: string;
 };
 
 
@@ -12,4 +14,7 @@ export type NewsState = {
   error: Error | string | null;
   news: News[];
   sortBy: string | null;
+  totalPages: number;
+  currentPage: number;
+  count: number;
 };

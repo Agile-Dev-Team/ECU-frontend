@@ -10,6 +10,9 @@ const initialState: NewsState = {
   error: null,
   isLoading: false,
   news: [],
+  totalPages:0,
+  currentPage:0,
+  count: 0,
   sortBy:''
 }
 
@@ -30,8 +33,10 @@ const slice = createSlice({
 
     //  GET USER LIST
     getNewsSuccess(state, action) {
-      const news = action.payload;
-      state.news = news;
+      state.news = action.payload.news;
+      state.totalPages = action.payload.totalPages;
+      state.currentPage = action.payload.currentPage;
+      state.count = action.payload.count;
       state.isLoading = false;
     },
 
@@ -57,7 +62,7 @@ export function getNewsList() {
   return async () => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.get('/admin/news/');
+      const response = await axios.get('/admin/news');
       dispatch(slice.actions.getNewsSuccess(response.data))
     } catch (error) {
       dispatch(slice.actions.hasError(error))
@@ -77,11 +82,24 @@ export function addNews(news : News) {
   };
 }
 
+export function updateNews(news : News) {
+  return async () => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axios.post('/admin/news/update', news);
+      dispatch(slice.actions.addNewsSuccess(response.data))
+    } catch (error) {
+      dispatch(slice.actions.hasError(error))
+    }
+  };
+}
+
+
 export function removeNews(ids: string[]) {
   return async () => {  
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.post(`/admin/news/remove`, {ids});
+      const response = await axios.post(`/admin/news/delete`, {ids});
       dispatch(slice.actions.removeNewsSuccess(ids));
     } catch (error) {
       dispatch(slice.actions.hasError(error));

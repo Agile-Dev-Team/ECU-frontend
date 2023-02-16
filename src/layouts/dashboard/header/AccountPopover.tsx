@@ -31,7 +31,7 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const [open, setOpen] = useState<HTMLElement | null>(null);
   const { user, logout } = useAuth();
-  console.log(user);
+  //console.log(user);
   const account : any = useSelector((state:RootState)=> state.account);
   const router = useRouter();
   const [ authUser, setAuthUser ] = useState<AuthUser|null>(null);
@@ -40,7 +40,7 @@ export default function AccountPopover() {
   };
   useEffect(()=>{
     setAuthUser(user);
-    console.log('header: ', user);
+    //console.log('header: ', user);
   },[user])
   const handleClose = (linkTo : string) => {
     setOpen(null);
