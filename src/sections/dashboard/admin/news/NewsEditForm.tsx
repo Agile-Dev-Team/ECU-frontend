@@ -4,66 +4,36 @@ import { useCallback, useEffect, useMemo } from 'react';
 // next
 import { useRouter } from 'next/router';
 // form
-import { useForm, Controller } from 'react-hook-form';
+import { useForm} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { styled } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
 import {
   Card,
-  Chip,
   Grid,
   Stack,
-  TextField,
   Typography,
-  Autocomplete,
-  InputAdornment,
 } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 // @types
-import { Product } from '../../../../@types/product';
+
+import { News } from '../../../../@types/news';
 // components
 import {
   FormProvider,
   RHFSwitch,
-  RHFSelect,
   RHFEditor,
   RHFTextField,
-  RHFRadioGroup,
-  RHFUploadMultiFile,
   RHFUploadSingleFile,
 } from '../../../../components/hook-form';
 
+import { addNews, updateNews } from '../../../../redux/slices/admin/news';
+import { dispatch } from '../../../../redux/store';
+import { UploadFile } from '../../../../utils/UploadFile';
+
 // ----------------------------------------------------------------------
-
-const GENDER_OPTION = [
-  { label: 'Men', value: 'Men' },
-  { label: 'Women', value: 'Women' },
-  { label: 'Kids', value: 'Kids' },
-];
-
-const CATEGORY_OPTION = [
-  { group: 'Clothing', classify: ['Shirts', 'T-shirts', 'Jeans', 'Leather'] },
-  { group: 'Tailored', classify: ['Suits', 'Blazers', 'Trousers', 'Waistcoats'] },
-  { group: 'Accessories', classify: ['Shoes', 'Backpacks and bags', 'Bracelets', 'Face masks'] },
-];
-
-const TAGS_OPTION = [
-  'Toy Story 3',
-  'Logan',
-  'Full Metal Jacket',
-  'Dangal',
-  'The Sting',
-  '2001: A Space Odyssey',
-  "Singin' in the Rain",
-  'Toy Story',
-  'Bicycle Thieves',
-  'The Kid',
-  'Inglourious Basterds',
-  'Snatch',
-  '3 Idiots',
-];
 
 const LabelStyle = styled(Typography)(({ theme }) => ({
   ...theme.typography.subtitle2,
@@ -73,80 +43,79 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-interface FormValuesProps extends Partial<Product> {
-  taxes: boolean;
-  inStock: boolean;
+interface FormValuesProps extends Partial<News> {
+  title: string;
+  content: string;
+  imageUrl: File | any;
+  status: boolean;
 }
 
 type Props = {
   isEdit?: boolean;
-  currentProduct?: Product;
+  currentNews?: News;
 };
 
-export default function ProductNewEditForm({ isEdit, currentProduct }: Props) {
+export default function ProductNewEditForm({ isEdit, currentNews }: Props) {
   const { push } = useRouter();
 
   // const { enqueueSnackbar } = useSnackbar();
 
-  const NewProductSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required'),
-    description: Yup.string().required('Description is required'),
-    images: Yup.array().min(1, 'Images is required'),
-    price: Yup.number().moreThan(0, 'Price should not be $0.00'),
+  const NewsSchema = Yup.object().shape({
+    title: Yup.string().required('Title is required'),
+    content: Yup.string().required('Content is required'),
   });
 
-  const defaultValues = useMemo(
-    () => ({
-      name: currentProduct?.name || '',
-      description: currentProduct?.description || '',
-      cover: currentProduct?.image || '',
-      code: currentProduct?.code || '',
-      sku: currentProduct?.sku || '',
-      price: currentProduct?.price || 0,
-      priceSale: currentProduct?.priceSale || 0,
-      tags: currentProduct?.tags || [TAGS_OPTION[0]],
-      inStock: true,
-      taxes: true,
-      gender: currentProduct?.gender || GENDER_OPTION[2].value,
-      category: currentProduct?.category || CATEGORY_OPTION[0].classify[1],
-    }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [currentProduct]
-  );
+  const defaultValues = {
+    title: currentNews?.title || '',
+    content: currentNews?.content || '',
+    imageUrl: currentNews?.imageUrl || '',
+    status: currentNews?.status || false,
+  };
 
   const methods = useForm<FormValuesProps>({
-    resolver: yupResolver(NewProductSchema),
+    resolver: yupResolver(NewsSchema),
     defaultValues,
   });
 
   const {
     reset,
-    watch,
-    control,
     setValue,
-    getValues,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
-  const values = watch();
 
   useEffect(() => {
-    if (isEdit && currentProduct) {
+    if (isEdit && currentNews) {
       reset(defaultValues);
     }
     if (!isEdit) {
       reset(defaultValues);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isEdit, currentProduct]);
+  }, [isEdit, currentNews]);
 
   const onSubmit = async (data: FormValuesProps) => {
+    console.log('onsubmit');
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
-      // enqueueSnackbar(!isEdit ? 'Create success!' : 'Update success!');
-      push(PATH_DASHBOARD.eCommerce.list);
+      console.log('add news data: ',data);
+      let url = isEdit ? data.imageUrl : '';
+      
+      if(data.imageUrl.path && data.imageUrl.path.substring(0, data.imageUrl.path.length - 4) !== defaultValues.imageUrl)
+        url = await UploadFile(data.imageUrl, 'news') || '';
+      const news : News = {
+        _id:isEdit ? (currentNews?._id ||'') : '',
+        title: data.title || '',
+        content: data.content || '',
+        imageUrl: url || '',
+        status: data.status || false,
+      }
+      console.log(isEdit, "isEdit");
+      if(!isEdit)
+        await dispatch(addNews(news));
+      else
+        await dispatch(updateNews(news));
+      push(PATH_DASHBOARD.news.list);
     } catch (error) {
       console.error(error);
     }
@@ -154,11 +123,12 @@ export default function ProductNewEditForm({ isEdit, currentProduct }: Props) {
 
   const handleDrop = useCallback(
     (acceptedFiles) => {
+      console.log('handldrop');
       const file = acceptedFiles[0];
-
+      console.log(file);
       if (file) {
         setValue(
-          'cover',
+          'imageUrl',
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           })
@@ -174,17 +144,19 @@ export default function ProductNewEditForm({ isEdit, currentProduct }: Props) {
         <Grid item xs={12} md={12}>
           <Card sx={{ p: 3 }}>
             <Stack spacing={3}>
-              <RHFTextField name="name" label="News Title" />
+              <RHFTextField name="title" label="News Title" />
 
               <div>
                 <LabelStyle>News Content</LabelStyle>
-                <RHFEditor simple name="description" />
+                <RHFEditor simple name="content" />
               </div>
-
+              <div>
+                <RHFSwitch label="Status" name="status"/>
+              </div>
               <div>
                 <LabelStyle>News background</LabelStyle>
                 <RHFUploadSingleFile
-                  name="cover"
+                  name="imageUrl"
                   accept="image/*"
                   maxSize={3145728}
                   onDrop={handleDrop}
