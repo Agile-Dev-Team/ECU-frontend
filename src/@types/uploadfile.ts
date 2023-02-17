@@ -35,3 +35,17 @@ export type UploadFile = {
   dueDate: Date | number;
   items: InvoiceItem[];
 };
+
+export type UploadFileState = {
+  isLoading: boolean;
+  error: Error | string | null;
+  brand: string[];
+  model: string[];
+  generation: string[];
+  engine: string[];
+  power: string;
+  torque: string;
+  fuel: string[];
+  ecu: string[];
+  year: string[];
+};

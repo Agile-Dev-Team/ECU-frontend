@@ -8,6 +8,7 @@ import productReducer from './slices/product';
 import calendarReducer from './slices/calendar';
 import kanbanReducer from './slices/kanban';
 import accountReducer from './slices/account';
+import uploadFileReducer from './slices/upload';
 
 import userReducer from './slices/admin/user'
 import newsReducer from './slices/admin/news'
@@ -43,7 +44,7 @@ const productPersistConfig = {
 
 const rootReducer = combineReducers({
   account: accountReducer,
-
+  uploadfile: uploadFileReducer,
   mail: mailReducer,
   chat: chatReducer,
   calendar: calendarReducer,

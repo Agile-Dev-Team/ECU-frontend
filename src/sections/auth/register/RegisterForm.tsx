@@ -2,6 +2,7 @@ import * as Yup from 'yup';
 import { useState } from 'react';
 // form
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { Stack, IconButton, InputAdornment, Alert } from '@mui/material';
@@ -12,6 +13,7 @@ import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField } from '../../../components/hook-form';
+import { PATH_AUTH } from '../../../routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -25,7 +27,7 @@ type FormValuesProps = {
 
 export default function RegisterForm() {
   const { register } = useAuth();
-
+  const { push } = useRouter();
   const isMountedRef = useIsMountedRef();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -60,6 +62,8 @@ export default function RegisterForm() {
   const onSubmit = async (data: FormValuesProps) => {
     try {
       await register(data.email, data.password, data.firstName, data.lastName);
+      push(PATH_AUTH.login);
+      
     } catch (error) {
       console.error(error);
 

@@ -3449,6 +3449,11 @@
   dependencies:
     "svg-arc-to-cubic-bezier" "^3.0.0"
 
+"notiflix@^3.2.6":
+  "integrity" "sha512-mUoaJ/s9E4r8o1O8XRqcuXEylpgOkfXtI5SEkBBlBK+LK7nq1c6qQaQcF7QzS/S018Ww7uUqSZotOs5cHENvVw=="
+  "resolved" "https://registry.npmjs.org/notiflix/-/notiflix-3.2.6.tgz"
+  "version" "3.2.6"
+
 "notistack@^2.0.3":
   "integrity" "sha512-krmVFtTO9kEY1Pa4NrbyexrjiRcV6TqBM2xLx8nuDea1g96Z/OZfkvVLmYKkTvoSJ3jyQntWK16z86ssW5kt4A=="
   "resolved" "https://registry.npmjs.org/notistack/-/notistack-2.0.3.tgz"

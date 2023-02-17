@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 // @mui
 import { Container } from '@mui/material';
 // redux
-import { useDispatch, useSelector } from '../../../../../../redux/store';
+import { RootState, useDispatch, useSelector } from '../../../../../../redux/store';
 import { getProducts } from '../../../../../../redux/slices/product';
 // routes
 import { PATH_DASHBOARD } from '../../../../../../routes/paths';
@@ -36,7 +36,7 @@ export default function EcommerceProductEdit() {
 
   const { id } = query;
 
-  const { news } = useSelector((state) => state.news);
+  const { news } = useSelector((state : RootState) => state.news);
 
   const currentNews = news.find((item) => paramCase(item._id) === id);
 
