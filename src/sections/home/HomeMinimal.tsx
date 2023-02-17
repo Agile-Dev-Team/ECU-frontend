@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { m } from 'framer-motion';
 // @mui
 import { alpha, useTheme, styled } from '@mui/material/styles';
@@ -8,6 +9,10 @@ import { MotionViewport, varFade } from '../../components/animate';
 import Carousel from 'react-material-ui-carousel';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { News } from 'src/@types/news';
+import { dispatch, RootState } from '../../redux/store';
+import { useSelector } from 'react-redux';
+import { getNewsList } from 'src/redux/slices/news';
 
 const CARDS = [
   {
@@ -181,6 +186,11 @@ export default function HomeMinimal() {
                     If you want to buy the dongle in your country – check our reseller list. We have the dealsers more than 25 countrues.',
     },
   ];
+  const news: News[] = useSelector((state: RootState) => state.news1.news);
+
+  useEffect(() => {
+    dispatch(getNewsList());
+  }, [])
 
   return (
     <RootStyle>
@@ -205,11 +215,11 @@ export default function HomeMinimal() {
           PrevIcon={<NavigateBeforeIcon sx={{ color: 'primary.main' }} />}
           sx={{ mb: 15 }}
         >
-          {items.map((item, i) => (
+          {news.map((item, i) => (
             <Paper
               key={'item' + i}
               sx={{
-                backgroundImage: `url(${item.img})`,
+                backgroundImage: `url(${item.imageUrl})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 height: { xs: 300, md: 600 },
@@ -221,8 +231,8 @@ export default function HomeMinimal() {
                 color: 'white !important',
               }}
             >
-              <m.h2 variants={varFade().inRight}>{item.name}</m.h2>
-              <m.p variants={varFade().inUp}>{item.description}</m.p>
+              <m.h2 variants={varFade().inRight}>{item.title}</m.h2>
+              <m.p variants={varFade().inUp}>{item.content}</m.p>
 
               <Button className="CheckButton">Check it out!</Button>
             </Paper>

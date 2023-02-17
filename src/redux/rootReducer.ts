@@ -9,6 +9,7 @@ import calendarReducer from './slices/calendar';
 import kanbanReducer from './slices/kanban';
 import accountReducer from './slices/account';
 import vehicleReducer from './slices/vehicle';
+import newsReducer1 from './slices/news';
 
 import userReducer from './slices/admin/user'
 import newsReducer from './slices/admin/news'
@@ -56,6 +57,7 @@ const rootReducer = combineReducers({
   users: userReducer,
   vehicle: vehicleReducer,
   news: newsReducer,
+  news1: newsReducer1,
 });
 
 export { rootPersistConfig, rootReducer };
