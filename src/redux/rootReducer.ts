@@ -8,6 +8,7 @@ import productReducer from './slices/product';
 import calendarReducer from './slices/calendar';
 import kanbanReducer from './slices/kanban';
 import accountReducer from './slices/account';
+import vehicleReducer from './slices/vehicle';
 
 import userReducer from './slices/admin/user'
 // ----------------------------------------------------------------------
@@ -50,6 +51,7 @@ const rootReducer = combineReducers({
   product: persistReducer(productPersistConfig, productReducer),
 
   users: userReducer,
+  vehicle: vehicleReducer,
 });
 
 export { rootPersistConfig, rootReducer };
