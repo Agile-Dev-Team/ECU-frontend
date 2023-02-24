@@ -204,7 +204,7 @@ export default function CatalogueForm() {
               }}
               sx={{ ml: 1, width: '91%' }}
             />
-            <Button variant='outlined' onClick={handleSearch}>Search</Button>
+            <Button variant='outlined' onClick={handleSearch} sx={{mb:3, ml:2}}>Search</Button>
             <TableContainer component={Paper}>
               <Table aria-label="collapsible table">
                 <TableHead>

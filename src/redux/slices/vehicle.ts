@@ -43,7 +43,7 @@ export function getVehicles(page: number, limit: number, search: string) {
   return async () => {
     dispatch(slice.actions.startLoading());
     try{
-      const response = await axios.post('admin/vehicle/getData', {
+      const response = await axios.post('/api/vehicle/getData', {
         page: page,
         limit: limit,
         search: search

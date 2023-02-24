@@ -40,6 +40,7 @@ import { RootState } from '../../redux/store';
 import { getBrand, getModel, getVersion, getModelYear, getEngineModel, getFuel, getEcu } from '../../redux/slices/upload';
 import { dispatch } from '../../redux/store';
 import Notiflix from 'notiflix';
+import { UploadFile } from '../../utils/UploadFile';
 
 // ----------------------------------------------------------------------
 
@@ -58,7 +59,7 @@ const RootStyle = styled('div')(({ theme }) => ({
 type Product = {
   id: string;
   cover: string;
-  files: string[];
+  files: File[];
   name: string;
   price: number;
   code: string;
@@ -289,8 +290,8 @@ export default function PageOne() {
       setOptions(options.filter((item) => item!=description))
     }
   }
-  const handleOnSubmit = () => {
-    if(values.files?.length === 0){
+  const handleOnSubmit = async () => {
+    if(!values.files || values.files?.length === 0){
       Notiflix.Notify.warning('Upload files.');
       return;
     }
@@ -298,6 +299,27 @@ export default function PageOne() {
       Notiflix.Notify.warning('Select service options in Step 2');
       return;
     }
+    const fileUrls: string []  = [];
+    for(let i = 0 ; i < values.files.length ; i++){
+        const url = await UploadFile(values.files[i], 'files');
+        if(url)
+          fileUrls.push(url);
+    }
+    const data = {
+      brandName,
+      modelName,
+      versionName,
+      modelYear,
+      engineModel,
+      fuelName,
+      ecuName,
+      power,
+      torque,
+      hw,
+      sw,
+      options,
+      fileUrls,
+    };
     
 
   }

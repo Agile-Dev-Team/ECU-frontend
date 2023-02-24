@@ -23,7 +23,6 @@ import {
   RHFUploadAvatar,
 } from '../../../../components/hook-form';
 import { UploadFile } from 'src/utils/UploadFile';
-import { s3Config } from 'src/config/aws-config';
 
 import { UserAccount } from 'src/@types/user';
 import { dispatch, RootState } from 'src/redux/store';

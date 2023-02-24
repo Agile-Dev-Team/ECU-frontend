@@ -29,6 +29,9 @@ const slice = createSlice({
       startLoading(state) {
         state.isLoading = true;
       },
+      loadingSuccess(state) {
+        state.isLoading = false;
+      },
       getBrand(state, action) {
         state.brand = action.payload;
       },
@@ -66,7 +69,7 @@ const slice = createSlice({
       dispatch(slice.actions.startLoading());
       try {
         console.log('slice account getAccount');
-        const response = await axios.get(`/admin/vehicle/getBrand`);
+        const response = await axios.get(`/api/vehicle/getBrand`);
         console.log('getBrand result', response.data);
         dispatch(slice.actions.getBrand(response.data));
       } catch (error) {
@@ -79,7 +82,7 @@ const slice = createSlice({
       dispatch(slice.actions.startLoading());
       try {
         console.log('slice account getModel');
-        const response = await axios.post(`/admin/vehicle/getModel`,{brandName});
+        const response = await axios.post(`/api/vehicle/getModel`,{brandName});
         console.log('getModel result', response.data);
         dispatch(slice.actions.getModel(response.data));
       } catch (error) {
@@ -92,7 +95,7 @@ const slice = createSlice({
       dispatch(slice.actions.startLoading());
       try {
         console.log('slice account getVersion');
-        const response = await axios.post(`/admin/vehicle/getVersion`,{brandName, modelName });
+        const response = await axios.post(`/api/vehicle/getVersion`,{brandName, modelName });
         console.log('getVersion result', response.data);
         dispatch(slice.actions.getVersion(response.data));
       } catch (error) {
@@ -105,7 +108,7 @@ const slice = createSlice({
       dispatch(slice.actions.startLoading());
       try {
         console.log('slice account getModel');
-        const response = await axios.post(`/admin/vehicle/getModelYear`,{brandName, modelName, versionName});
+        const response = await axios.post(`/api/vehicle/getModelYear`,{brandName, modelName, versionName});
         console.log('getModel result', response.data);
         dispatch(slice.actions.getModelYear(response.data));
       } catch (error) {
@@ -118,7 +121,7 @@ const slice = createSlice({
       dispatch(slice.actions.startLoading());
       try {
         console.log('slice account getEngineModel');
-        const response = await axios.post(`/admin/vehicle/getEngineModel`,{brandName, modelName, versionName, modelYear});
+        const response = await axios.post(`/api/vehicle/getEngineModel`,{brandName, modelName, versionName, modelYear});
         console.log('getEngineModel result', response.data);
         dispatch(slice.actions.getEngineModel(response.data));
       } catch (error) {
@@ -131,7 +134,7 @@ const slice = createSlice({
       dispatch(slice.actions.startLoading());
       try {
         console.log('slice account getFuel');
-        const response = await axios.post(`/admin/vehicle/getFuel`,{brandName, modelName, versionName, modelYear, enginModel});
+        const response = await axios.post(`/api/vehicle/getFuel`,{brandName, modelName, versionName, modelYear, enginModel});
         console.log('getFuel result', response.data);
         dispatch(slice.actions.getFuel(response.data));
       } catch (error) {
@@ -144,13 +147,26 @@ const slice = createSlice({
       dispatch(slice.actions.startLoading());
       try {
         console.log('slice account getEcu');
-        const response = await axios.post(`/admin/vehicle/getEcu`,{brandName, modelName, versionName, modelYear, enginModel, fuel});
+        const response = await axios.post(`/api/vehicle/getEcu`,{brandName, modelName, versionName, modelYear, enginModel, fuel});
         console.log('getEcu result', response.data);
         dispatch(slice.actions.getEcu(response.data));
       } catch (error) {
         dispatch(slice.actions.hasError(error));
       }
     };
+  }
+  export function request(data: any){
+    return async () => {
+      dispatch(slice.actions.startLoading());
+      try {
+        console.log('slice account getEcu');
+        const response = await axios.post(`api/vehicle/upload-request`, data);
+        console.log('getEcu result', response.data);
+        dispatch(slice.actions.loadingSuccess());
+      } catch (error) {
+        dispatch(slice.actions.hasError(error));
+      }
+    }
   }
   
   
